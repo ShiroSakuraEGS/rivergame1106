@@ -1,0 +1,10 @@
+# 系統暫存與編輯器檔案
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+
+# 編輯器目錄
+.vscode/
+.idea/
+*.swp

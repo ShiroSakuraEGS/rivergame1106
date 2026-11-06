@@ -1,0 +1,1207 @@
+/**
+ * 《瓦磘溝探索之旅》核心視覺樣式表
+ * 採用清新水岸繪本風、玻璃擬態質感與兒童友善排版
+ */
+
+:root {
+    --primary-color: #00897b;
+    --primary-dark: #004d40;
+    --primary-light: #e0f2f1;
+    --water-blue: #0288d1;
+    --water-light: #e1f5fe;
+    --accent-gold: #f59e0b;
+    --accent-green: #2e7d32;
+    --monster-brown: #5d4037;
+    --text-main: #263238;
+    --text-muted: #607d8b;
+    --bg-light: #f8fafc;
+    --card-glass: rgba(255, 255, 255, 0.88);
+    --border-glass: rgba(255, 255, 255, 0.6);
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --shadow-float: 0 15px 35px rgba(0, 77, 64, 0.15);
+    --font-stack: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: #0f172a;
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* 遊戲應用主容器（固定 16:9 或全螢幕響應式） */
+#game-app {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    min-height: 600px;
+    background: #004d40;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================
+   一、開始封面螢幕（Start Screen）
+   ========================================== */
+.start-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+}
+
+.cover-bg-image {
+    position: absolute;
+    inset: 0;
+    background-image: url('../assets/images/cover.png');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.85);
+}
+
+.cover-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 30, 20, 0.3) 0%, rgba(0, 40, 30, 0.65) 60%, rgba(0, 20, 15, 0.95) 100%);
+}
+
+.cover-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    max-width: 780px;
+    padding: 2.5rem 2rem;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    border-radius: 28px;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+    margin: 1.5rem;
+}
+
+.project-tag {
+    display: inline-block;
+    background: #e0f2f1;
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 6px 18px;
+    border-radius: 30px;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+
+.game-main-title {
+    font-size: 3rem;
+    color: var(--primary-dark);
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 0.3rem;
+    text-shadow: 1px 1px 0 #fff;
+}
+
+.game-sub-title {
+    font-size: 1.45rem;
+    color: var(--water-blue);
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+}
+
+.game-intro-text {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+.start-button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.cover-footer-note {
+    font-size: 0.85rem;
+    color: #90a4ae;
+}
+
+/* ==========================================
+   二、按鈕通用規範
+   ========================================== */
+.btn-primary {
+    background: linear-gradient(135deg, #00897b, #00695c);
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 137, 123, 0.35);
+    transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(0, 137, 123, 0.45);
+    background: linear-gradient(135deg, #009688, #00796b);
+}
+
+.btn-secondary {
+    background: #fff;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    padding: 11px 24px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.btn-secondary:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.btn-choice {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--text-main);
+    border: 2px solid #b2dfdb;
+    padding: 12px 20px;
+    border-radius: 16px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.btn-choice:hover:not(:disabled) {
+    background: #e0f2f1;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.btn-choice.correct {
+    background: #c8e6c9 !important;
+    border-color: #43a047 !important;
+    color: #1b5e20 !important;
+}
+
+.btn-choice.hint {
+    background: #fff9c4 !important;
+    border-color: #fbc02d !important;
+    color: #f57f17 !important;
+}
+
+.btn-choice.selected {
+    background: #b2ebf2;
+    border-color: #00acc1;
+    color: #006064;
+}
+
+/* ==========================================
+   三、主遊戲螢幕（Game Screen）
+   ========================================== */
+.game-screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    background: #004d40;
+    overflow: hidden;
+}
+
+/* 頂部 HUD 狀態列 */
+.game-hud {
+    position: relative;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 18px;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid #b2dfdb;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.hud-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.hud-badge {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.hud-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+}
+
+.hud-mission {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.hud-center {
+    display: flex;
+    align-items: center;
+}
+
+.fragments-inventory {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0, 77, 64, 0.05);
+    padding: 4px 14px;
+    border-radius: 30px;
+}
+
+.inventory-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+.fragment-slots {
+    display: flex;
+    gap: 8px;
+}
+
+.fragment-slot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #cfd8dc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    opacity: 0.45;
+    transition: all 0.35s ease;
+    cursor: help;
+}
+
+.fragment-slot.collected {
+    opacity: 1;
+    transform: scale(1.1);
+    background: #fff;
+    box-shadow: 0 0 12px rgba(255, 193, 7, 0.8);
+}
+
+.hud-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-hud-tool {
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    color: #475569;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-hud-tool:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+.btn-muted {
+    background: #fee2e2;
+    color: #b91c1c;
+    border-color: #fca5a5;
+}
+
+/* ==========================================
+   四、舞台背景與立繪演出區（Stage）
+   ========================================== */
+.game-stage {
+    position: relative;
+    flex: 1;
+    min-height: 250px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.stage-background {
+    position: absolute;
+    inset: 0;
+    transition: all 1s ease;
+    background-size: cover;
+    background-position: center;
+}
+
+/* 序章背景：和緩微風午後 */
+.bg-ch0 {
+    background: linear-gradient(180deg, #b3e5fc 0%, #e1f5fe 40%, #81c784 75%, #00897b 100%);
+}
+
+/* 第一章背景：古代水路時光之門（暖黃褐色微光懷舊水鄉） */
+.bg-ch1 {
+    background: linear-gradient(180deg, #ffe082 0%, #fff9c4 40%, #a5d6a7 70%, #00695c 100%);
+}
+
+/* 第二章背景：現代瓦磘溝綠意水岸 */
+.bg-ch2 {
+    background: linear-gradient(180deg, #81d4fa 0%, #c8e6c9 45%, #4caf50 75%, #004d40 100%);
+}
+
+/* 第三章背景：黑水翻騰濁水危機 */
+.bg-ch3 {
+    background: linear-gradient(180deg, #546e7a 0%, #37474f 40%, #4e342e 75%, #263238 100%);
+}
+
+/* 終章背景：重生七彩朝陽清澈水流 */
+.bg-ch4 {
+    background: linear-gradient(180deg, #ffcc80 0%, #80deea 35%, #4db6ac 70%, #004d40 100%);
+}
+
+/* 角色立繪展示容器 */
+.stage-characters {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 3.5rem;
+    width: 100%;
+    max-width: 1100px;
+    padding-bottom: 15px;
+    pointer-events: none;
+}
+
+.stage-char {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.char-sprite-wrap {
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+}
+
+.char-name-plate {
+    margin-top: 6px;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--text-main);
+    padding: 3px 12px;
+    border-radius: 14px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-bottom: 3px solid #00897b;
+}
+
+/* ==========================================
+   五、下半部控制台：互動區與對話框
+   ========================================== */
+.game-console {
+    position: relative;
+    z-index: 40;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px 16px 16px;
+    gap: 12px;
+}
+
+/* 互動任務操作面板 */
+.interaction-area {
+    width: 100%;
+    max-width: 960px;
+    background: var(--card-glass);
+    backdrop-filter: blur(14px);
+    border-radius: 20px;
+    padding: 1.2rem;
+    box-shadow: var(--shadow-float);
+    border: 2px solid var(--border-glass);
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.interaction-prompt {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 0.8rem;
+}
+
+.choice-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.quiz-feedback {
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 0.98rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.correct-feedback {
+    background: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #a5d6a7;
+}
+
+.hint-feedback {
+    background: #fffde7;
+    color: #f57f17;
+    border: 1px solid #fff59d;
+}
+
+/* 歷史尋寶與生物畫布 */
+.hunt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.hunt-instruction {
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+.hunt-counter {
+    background: var(--primary-light);
+    color: var(--primary-color);
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 14px;
+    font-size: 0.85rem;
+}
+
+.historical-canvas {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, #fff8e1 0%, #e0f2f1 100%);
+    border-radius: 16px;
+    border: 2px dashed #80cbc4;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.hunt-hotspot {
+    position: absolute;
+    width: 52px;
+    height: 52px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    transition: transform 0.25s ease;
+}
+
+.hunt-hotspot:hover {
+    transform: translate(-50%, -50%) scale(1.15);
+}
+
+.hotspot-icon {
+    font-size: 2rem;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+}
+
+.hotspot-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2px 6px;
+    border-radius: 8px;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.hunt-hotspot.discovered .hotspot-pulse {
+    display: none;
+}
+
+.hunt-hotspot.discovered {
+    opacity: 0.65;
+}
+
+.hunt-detail-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #e8f5e9;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #c8e6c9;
+}
+
+.detail-icon {
+    font-size: 2rem;
+}
+
+.all-cleared-msg {
+    color: #2e7d32;
+    font-weight: 800;
+    font-size: 0.95rem;
+    margin-top: 6px;
+}
+
+/* 生態動植物網格 */
+.creature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.creature-card {
+    background: #fff;
+    border: 2px solid #b2dfdb;
+    border-radius: 14px;
+    padding: 10px 6px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.creature-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+.creature-card.collected {
+    border-color: #43a047;
+    background: #f1f8e9;
+}
+
+.creature-card-icon {
+    font-size: 2.2rem;
+    margin-bottom: 4px;
+}
+
+.creature-card-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--primary-dark);
+}
+
+.creature-card-role {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.creature-check-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 22px;
+    height: 22px;
+    background: #43a047;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+}
+
+.creature-card.collected .creature-check-badge {
+    display: flex;
+}
+
+.creature-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.creature-popup-inner {
+    background: #fff;
+    border-radius: 24px;
+    padding: 2rem;
+    max-width: 520px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.popup-icon {
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.popup-question {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 1rem 0;
+}
+
+/* 垃圾清理場景 */
+.trash-scene-area {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    background: #e8f5e9;
+    border-radius: 16px;
+    border: 2px dashed #a5d6a7;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+}
+
+.trash-item {
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.trash-item:hover {
+    transform: scale(1.15) rotate(5deg);
+}
+
+.trash-icon-wrap {
+    font-size: 2.8rem;
+}
+
+.trash-tag {
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.trash-item.cleaned {
+    opacity: 0.15;
+    pointer-events: none;
+    transform: scale(0.6);
+}
+
+.trash-info-box {
+    margin-top: 10px;
+    background: #fff;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border-left: 5px solid #e53935;
+}
+
+.info-title {
+    font-weight: 700;
+    color: #2e7d32;
+}
+
+.info-danger {
+    font-size: 0.9rem;
+    color: #c62828;
+}
+
+/* 污染知識卡片 */
+.knowledge-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.knowledge-card {
+    background: #fff;
+    border: 2px solid #b0bec5;
+    border-radius: 16px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.knowledge-card:hover {
+    border-color: #e53935;
+    transform: translateY(-2px);
+}
+
+.knowledge-card.revealed {
+    border-color: #26a69a;
+    background: #fdfefe;
+}
+
+.card-icon {
+    font-size: 2.2rem;
+    margin-bottom: 6px;
+}
+
+.card-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.card-title {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    margin-bottom: 6px;
+}
+
+.card-flip-hint {
+    font-size: 0.8rem;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.card-section {
+    font-size: 0.82rem;
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+.card-section strong {
+    color: #d32f2f;
+}
+
+/* 守護誓約卡 */
+.pledge-card {
+    text-align: center;
+}
+
+.pledge-symbol {
+    font-size: 2.5rem;
+}
+
+.pledge-header h3 {
+    color: var(--primary-dark);
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+}
+
+.pledge-input-group {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-name {
+    font-size: 1.1rem;
+    padding: 8px 14px;
+    border-radius: 12px;
+    border: 2px solid #80cbc4;
+    outline: none;
+    font-weight: 700;
+    color: #004d40;
+}
+
+.pledge-promises {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+    max-width: 580px;
+    margin: 0 auto 1.2rem auto;
+}
+
+.promise-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f1f5f9;
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.92rem;
+}
+
+/* 對話框（Dialogue Box） */
+.dialogue-box {
+    width: 100%;
+    max-width: 960px;
+    min-height: 110px;
+    background: var(--card-glass);
+    backdrop-filter: blur(14px);
+    border-radius: 20px;
+    padding: 14px 20px;
+    box-shadow: var(--shadow-float);
+    border: 2px solid var(--border-glass);
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.15s ease;
+}
+
+.dialogue-box:hover {
+    transform: translateY(-2px);
+}
+
+.dialogue-speaker-avatar {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid #b2dfdb;
+}
+
+.dialogue-speaker-avatar svg {
+    width: 90%;
+    height: 90%;
+}
+
+.dialogue-body {
+    flex: 1;
+}
+
+.speaker-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+}
+
+.speaker-name {
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.speaker-title {
+    font-size: 0.8rem;
+    background: #e2e8f0;
+    color: #475569;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.speaker-catchphrase {
+    font-size: 0.82rem;
+    color: #78909c;
+    font-style: italic;
+}
+
+.dialogue-text {
+    font-size: 1.12rem;
+    color: #1e293b;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.dialogue-advance-hint {
+    flex-shrink: 0;
+}
+
+.btn-next-dialogue {
+    background: #e0f2f1;
+    color: var(--primary-color);
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 137, 123, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.btn-next-dialogue:hover {
+    background: var(--primary-color);
+    color: #fff;
+    transform: scale(1.1);
+}
+
+/* ==========================================
+   六、彈跳視窗（Modal Overlay）
+   ========================================== */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: rgba(0, 20, 15, 0.7);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-container {
+    position: relative;
+    background: #fff;
+    width: 100%;
+    max-width: 860px;
+    max-height: 90vh;
+    border-radius: 28px;
+    padding: 2.2rem;
+    overflow-y: auto;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    background: #f1f5f9;
+    border: none;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.modal-close-btn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+/* 記憶碎片解鎖彈窗 */
+.fragment-unlock-modal {
+    position: relative;
+    text-align: center;
+    padding: 1.5rem 0;
+}
+
+.fragment-big-icon {
+    font-size: 4.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.fragment-title {
+    font-size: 1.8rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.5rem;
+}
+
+.fragment-badge-title {
+    display: inline-block;
+    background: #fef3c7;
+    color: #b45309;
+    font-weight: 800;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.fragment-desc {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 520px;
+    margin: 0 auto 1.8rem auto;
+}
+
+/* 證書彈窗 */
+.certificate-modal-wrapper {
+    text-align: center;
+}
+
+.cert-congrats-header h2 {
+    font-size: 1.8rem;
+    color: var(--primary-dark);
+    margin-bottom: 0.3rem;
+}
+
+.cert-canvas-container {
+    margin: 1.2rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+#cert-canvas {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.cert-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+/* 章節選單彈窗 */
+.chapters-modal h3 {
+    color: var(--primary-dark);
+    margin-bottom: 1.2rem;
+}
+
+.chapter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chapter-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    padding: 12px 16px;
+    border-radius: 16px;
+}
+
+.chapter-item.current {
+    border-color: var(--primary-color);
+    background: #e0f2f1;
+}
+
+.chap-badge {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.chap-name {
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.chap-time {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* 導讀手冊 */
+.guide-modal-content h2 {
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+}
+
+.guide-intro {
+    font-size: 1.05rem;
+    color: #475569;
+    margin-bottom: 1.2rem;
+}
+
+.guide-section {
+    background: #f8fafc;
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 12px;
+}
+
+.guide-section h3 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.guide-section ul {
+    padding-left: 20px;
+    color: #334155;
+    line-height: 1.6;
+}
+
+/* ==========================================
+   七、行動裝置與平板響應式優化
+   ========================================== */
+@media (max-width: 768px) {
+    .game-main-title {
+        font-size: 2.2rem;
+    }
+    .hud-mission, .inventory-label {
+        display: none;
+    }
+    .stage-characters {
+        gap: 1.2rem;
+    }
+    .char-sprite-wrap {
+        width: 95px;
+        height: 95px;
+    }
+    .dialogue-speaker-avatar {
+        width: 54px;
+        height: 54px;
+    }
+    .dialogue-text {
+        font-size: 1rem;
+    }
+    .creature-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .modal-container {
+        padding: 1.5rem;
+    }
+}

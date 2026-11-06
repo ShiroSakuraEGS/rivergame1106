@@ -1,0 +1,171 @@
+/**
+ * 《瓦磘溝探索之旅》特效與動畫樣式表
+ */
+
+/* 淡入動畫 */
+.fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 淡出動畫 */
+.fade-out {
+    animation: fadeOut 0.5s ease-in forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* 角色上下緩慢浮動（水波呼吸感） */
+.stage-char {
+    animation: floatGentle 3.5s ease-in-out infinite alternate;
+}
+
+.stage-char:nth-child(even) {
+    animation-duration: 4.2s;
+    animation-delay: -1.5s;
+}
+
+@keyframes floatGentle {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+/* 當前正在說話的角色高亮與微幅擺動 */
+.stage-char.speaking {
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9));
+    transform: scale(1.06);
+    z-index: 5;
+    animation: speakPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes speakPulse {
+    0% {
+        transform: scale(1.05) translateY(-2px);
+    }
+    100% {
+        transform: scale(1.08) translateY(-8px);
+    }
+}
+
+/* 水滴微光脈動 */
+.water-glow {
+    animation: waterGlowPulse 2.5s infinite alternate;
+}
+
+@keyframes waterGlowPulse {
+    0% {
+        box-shadow: 0 0 10px rgba(52, 152, 219, 0.4);
+    }
+    100% {
+        box-shadow: 0 0 25px rgba(52, 152, 219, 0.85);
+    }
+}
+
+/* 尋寶熱點脈衝波紋 */
+.hotspot-pulse {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(255, 215, 0, 0.45);
+    animation: ripple 1.8s ease-out infinite;
+    pointer-events: none;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2.2);
+        opacity: 0;
+    }
+}
+
+/* 元素錯誤晃動 */
+.shake-anim {
+    animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}
+
+/* 記憶碎片光芒爆發特效 */
+.fragment-burst-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255, 235, 59, 0.8) 0%, rgba(255, 193, 7, 0.2) 60%, transparent 80%);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    animation: burstSpin 6s linear infinite;
+    z-index: -1;
+}
+
+@keyframes burstSpin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg) scale(0.9);
+    }
+    50% {
+        transform: translate(-50%, -50%) rotate(180deg) scale(1.15);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg) scale(0.9);
+    }
+}
+
+/* 水波流動背景線條 */
+@keyframes riverFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* 對話游標閃爍 */
+.cursor-blink {
+    display: inline-block;
+    width: 3px;
+    height: 1.1em;
+    background-color: #00897b;
+    margin-left: 3px;
+    vertical-align: middle;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}

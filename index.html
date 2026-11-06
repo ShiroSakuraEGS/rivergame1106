@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《瓦磘溝探索之旅》消失的河川記憶｜兒童互動式河川教育遊戲</title>
+    <meta name="description" content="一場關於河流、居民、動物與守護的冒險。專為國小三至六年級設計的瓦磘溝沉浸式河川教育互動遊戲。">
+    
+    <!-- 引入樣式表 -->
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💧</text></svg>">
+</head>
+<body>
+    <div id="game-app">
+        <!-- ==========================================
+             一、開始封面螢幕（Start Screen）
+             ========================================== -->
+        <section id="start-screen" class="start-screen">
+            <div class="cover-bg-image"></div>
+            <div class="cover-overlay"></div>
+            <div class="cover-content fade-in">
+                <div class="project-tag">志同道河 River Adventure Project</div>
+                <h1 class="game-main-title">瓦磘溝探索之旅</h1>
+                <h2 class="game-sub-title">消失的河川記憶</h2>
+                <p class="game-intro-text">
+                    在中和與永和之間，有一條承載著百年水路記憶的河川——瓦磘溝。<br>
+                    如今，神祕的「記憶之流」正在消失，由生活污染物凝聚的「醜泥怪」也悄悄現身……<br>
+                    和小水滴、河爺爺、小白鷺一起找回失落的三枚記憶碎片吧！
+                </p>
+                <div class="start-button-group">
+                    <button id="btn-start-game" class="btn-primary btn-large">🌊 開始探索旅程</button>
+                    <button id="btn-start-chapters" class="btn-secondary">🗺️ 章節選擇</button>
+                    <button id="btn-guide" class="btn-secondary">📖 故事導讀手冊</button>
+                </div>
+                <div class="cover-footer-note">
+                    建議遊玩時間：20–25 分鐘 ｜ 適合年級：國小三至六年級 ｜ 支援平板與電腦瀏覽
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             二、主遊戲操作螢幕（Game Screen）
+             ========================================== -->
+        <main id="game-screen" class="game-screen hidden">
+            <!-- 頂部 HUD 狀態列 -->
+            <header class="game-hud">
+                <div class="hud-left">
+                    <span id="hud-chapter-badge" class="hud-badge">序章</span>
+                    <span id="hud-chapter-title" class="hud-title">神祕的河川呼喚</span>
+                    <span id="hud-mission-desc" class="hud-mission">找到小水滴，展開河川探索</span>
+                </div>
+
+                <div class="hud-center">
+                    <div class="fragments-inventory">
+                        <span class="inventory-label">記憶之流：</span>
+                        <div class="fragment-slots">
+                            <div id="slot-history_stone" class="fragment-slot" title="歷史之石">🪨</div>
+                            <div id="slot-ecology_leaf" class="fragment-slot" title="生態之葉">🍃</div>
+                            <div id="slot-protection_water" class="fragment-slot" title="守護之水">💧</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hud-right">
+                    <button id="btn-chapters" class="btn-hud-tool" title="章節導覽">🗺️ 章節</button>
+                    <button id="btn-mute" class="btn-hud-tool" title="切換音效">🔊 音效</button>
+                    <button id="btn-restart" class="btn-hud-tool" title="重新開始">🔄 重設</button>
+                </div>
+            </header>
+
+            <!-- 舞台場景展示與立繪演出區 -->
+            <section class="game-stage">
+                <div id="stage-background" class="stage-background bg-ch0"></div>
+                <div id="stage-characters" class="stage-characters">
+                    <!-- 角色立繪由遊戲引擎動態掛載 -->
+                </div>
+            </section>
+
+            <!-- 下半部互動區與對話框 -->
+            <footer class="game-console">
+                <!-- 互動任務操作面板（選擇題、尋寶、卡片配對、承諾卡等） -->
+                <div id="interaction-area" class="interaction-area hidden"></div>
+
+                <!-- 故事對話框 -->
+                <div id="dialogue-box" class="dialogue-box">
+                    <div id="speaker-avatar" class="dialogue-speaker-avatar">
+                        <!-- 說話角色頭像由引擎渲染 -->
+                    </div>
+                    <div class="dialogue-body">
+                        <div class="speaker-meta">
+                            <span id="speaker-name" class="speaker-name">小水滴</span>
+                            <span id="speaker-title" class="speaker-title">瓦磘溝記憶之流</span>
+                            <span id="speaker-catchphrase" class="speaker-catchphrase"></span>
+                        </div>
+                        <div id="dialogue-text" class="dialogue-text">
+                            正在載入瓦磘溝探索之旅……
+                        </div>
+                    </div>
+                    <div class="dialogue-advance-hint">
+                        <button id="btn-next-dialogue" class="btn-next-dialogue" title="繼續下一句">▼</button>
+                    </div>
+                </div>
+            </footer>
+        </main>
+
+        <!-- ==========================================
+             三、全域彈跳視窗（Modal Overlay）
+             ========================================== -->
+        <div id="modal-overlay" class="modal-overlay hidden">
+            <div class="modal-container">
+                <button id="modal-close-btn" class="modal-close-btn" title="關閉視窗">✕</button>
+                <div id="modal-content" class="modal-content">
+                    <!-- 彈窗內容動態注入 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 載入腳本 -->
+    <script src="js/storyData.js"></script>
+    <script src="js/audioManager.js"></script>
+    <script src="js/gameEngine.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
