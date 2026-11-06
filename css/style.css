@@ -558,7 +558,7 @@ body {
 
 .hotspot-icon {
     font-size: 2rem;
-    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
 }
 
 .hotspot-label {
@@ -568,7 +568,7 @@ body {
     padding: 2px 6px;
     border-radius: 8px;
     white-space: nowrap;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .hunt-hotspot.discovered .hotspot-pulse {
@@ -622,7 +622,7 @@ body {
 .creature-card:hover {
     border-color: var(--primary-color);
     transform: translateY(-3px);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
 }
 
 .creature-card.collected {
@@ -684,7 +684,7 @@ body {
     max-width: 520px;
     width: 90%;
     text-align: center;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
 }
 
 .popup-icon {
@@ -1086,7 +1086,7 @@ body {
     max-width: 100%;
     height: auto;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
 .cert-actions {
@@ -1181,26 +1181,34 @@ body {
     .game-main-title {
         font-size: 2.2rem;
     }
-    .hud-mission, .inventory-label {
+
+    .hud-mission,
+    .inventory-label {
         display: none;
     }
+
     .stage-characters {
         gap: 1.2rem;
     }
+
     .char-sprite-wrap {
         width: 95px;
         height: 95px;
     }
+
     .dialogue-speaker-avatar {
         width: 54px;
         height: 54px;
     }
+
     .dialogue-text {
         font-size: 1rem;
     }
+
     .creature-grid {
         grid-template-columns: repeat(3, 1fr);
     }
+
     .modal-container {
         padding: 1.5rem;
     }
