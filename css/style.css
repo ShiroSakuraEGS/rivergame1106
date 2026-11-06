@@ -1,6 +1,6 @@
 /**
- * 《瓦磘溝探索之旅》核心視覺樣式表
- * 採用清新水岸繪本風、玻璃擬態質感與兒童友善排版
+ * 《瓦磘溝探索之旅》核心視覺樣式表 (極致 RWD 響應式版)
+ * 完美適配：手機直向 / 手機橫向 / iPad 平板 / 桌機寬螢幕
  */
 
 :root {
@@ -15,11 +15,11 @@
     --text-main: #263238;
     --text-muted: #607d8b;
     --bg-light: #f8fafc;
-    --card-glass: rgba(255, 255, 255, 0.88);
-    --border-glass: rgba(255, 255, 255, 0.6);
-    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
-    --shadow-float: 0 15px 35px rgba(0, 77, 64, 0.15);
-    --font-stack: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+    --card-glass: rgba(255, 255, 255, 0.92);
+    --border-glass: rgba(255, 255, 255, 0.7);
+    --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --shadow-float: 0 12px 32px rgba(0, 77, 64, 0.16);
+    --font-stack: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
 }
 
 * {
@@ -29,27 +29,29 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-body {
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #004d40;
     font-family: var(--font-stack);
-    background-color: #0f172a;
     color: var(--text-main);
-    line-height: 1.6;
-    overflow-x: hidden;
     user-select: none;
     -webkit-user-select: none;
 }
 
-/* 遊戲應用主容器（固定 16:9 或全螢幕響應式） */
+/* 主容器：採用現代動態視口單位 100dvh，徹底杜絕手機網址列造成的溢出 */
 #game-app {
     position: relative;
     width: 100vw;
     height: 100vh;
-    min-height: 600px;
-    background: #004d40;
+    height: 100dvh;
+    max-width: 100%;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: #004d40;
 }
 
 .hidden {
@@ -66,7 +68,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #000;
+    background: #00251a;
+    padding: 16px;
+    overflow-y: auto;
 }
 
 .cover-bg-image {
@@ -81,90 +85,96 @@ body {
 .cover-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0, 30, 20, 0.3) 0%, rgba(0, 40, 30, 0.65) 60%, rgba(0, 20, 15, 0.95) 100%);
+    background: linear-gradient(180deg, rgba(0, 30, 20, 0.35) 0%, rgba(0, 45, 30, 0.7) 60%, rgba(0, 20, 15, 0.96) 100%);
 }
 
 .cover-content {
     position: relative;
     z-index: 10;
     text-align: center;
-    max-width: 780px;
+    width: 100%;
+    max-width: 720px;
     padding: 2.5rem 2rem;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border-radius: 28px;
-    border: 3px solid rgba(255, 255, 255, 0.8);
+    border: 3px solid rgba(255, 255, 255, 0.85);
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
-    margin: 1.5rem;
+    margin: auto;
 }
 
 .project-tag {
     display: inline-block;
     background: #e0f2f1;
     color: var(--primary-color);
-    font-weight: 700;
-    font-size: 0.95rem;
-    padding: 6px 18px;
+    font-weight: 800;
+    font-size: 0.92rem;
+    padding: 5px 16px;
     border-radius: 30px;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     letter-spacing: 1px;
 }
 
 .game-main-title {
-    font-size: 3rem;
+    font-size: clamp(2rem, 5vw, 3.2rem);
     color: var(--primary-dark);
     font-weight: 900;
     letter-spacing: 2px;
-    margin-bottom: 0.3rem;
-    text-shadow: 1px 1px 0 #fff;
+    margin-bottom: 0.2rem;
+    line-height: 1.2;
 }
 
 .game-sub-title {
-    font-size: 1.45rem;
+    font-size: clamp(1.15rem, 3vw, 1.45rem);
     color: var(--water-blue);
     font-weight: 700;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1rem;
 }
 
 .game-intro-text {
-    font-size: 1.05rem;
+    font-size: clamp(0.92rem, 2.2vw, 1.05rem);
     color: var(--text-muted);
-    margin-bottom: 2rem;
-    line-height: 1.7;
+    margin-bottom: 1.8rem;
+    line-height: 1.65;
 }
 
 .start-button-group {
     display: flex;
-    gap: 1rem;
+    gap: 0.8rem;
     justify-content: center;
     flex-wrap: wrap;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
 }
 
 .cover-footer-note {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     color: #90a4ae;
 }
 
 /* ==========================================
-   二、按鈕通用規範
+   二、按鈕通用規範（符合無障礙觸控熱區 >= 44px）
    ========================================== */
 .btn-primary {
     background: linear-gradient(135deg, #00897b, #00695c);
     color: #fff;
     border: none;
+    min-height: 46px;
     padding: 12px 28px;
     border-radius: 50px;
-    font-size: 1.15rem;
+    font-size: clamp(0.98rem, 2.5vw, 1.15rem);
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0, 137, 123, 0.35);
+    box-shadow: 0 6px 18px rgba(0, 137, 123, 0.35);
     transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(0, 137, 123, 0.45);
+    box-shadow: 0 10px 24px rgba(0, 137, 123, 0.45);
     background: linear-gradient(135deg, #009688, #00796b);
 }
 
@@ -172,12 +182,16 @@ body {
     background: #fff;
     color: var(--primary-color);
     border: 2px solid var(--primary-color);
-    padding: 11px 24px;
+    min-height: 46px;
+    padding: 11px 22px;
     border-radius: 50px;
-    font-size: 1rem;
+    font-size: clamp(0.92rem, 2.2vw, 1rem);
     font-weight: 700;
     cursor: pointer;
     transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-secondary:hover {
@@ -186,19 +200,21 @@ body {
 }
 
 .btn-choice {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.96);
     color: var(--text-main);
     border: 2px solid #b2dfdb;
-    padding: 12px 20px;
-    border-radius: 16px;
-    font-size: 1.05rem;
+    min-height: 44px;
+    padding: 10px 16px;
+    border-radius: 14px;
+    font-size: clamp(0.92rem, 2.2vw, 1.05rem);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
     text-align: left;
     display: flex;
     align-items: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+    line-height: 1.4;
 }
 
 .btn-choice:hover:not(:disabled) {
@@ -244,101 +260,117 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 18px;
-    background: rgba(255, 255, 255, 0.94);
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 2px solid #b2dfdb;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+    flex-shrink: 0;
 }
 
 .hud-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+    min-width: 0;
 }
 
 .hud-badge {
     background: var(--primary-color);
     color: #fff;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .hud-title {
-    font-size: 1.15rem;
+    font-size: clamp(0.92rem, 2.5vw, 1.15rem);
     font-weight: 800;
     color: var(--primary-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .hud-mission {
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 280px;
 }
 
 .hud-center {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .fragments-inventory {
     display: flex;
     align-items: center;
-    gap: 12px;
-    background: rgba(0, 77, 64, 0.05);
-    padding: 4px 14px;
-    border-radius: 30px;
+    gap: 8px;
+    background: rgba(0, 77, 64, 0.06);
+    padding: 3px 10px;
+    border-radius: 24px;
 }
 
 .inventory-label {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 700;
     color: var(--primary-dark);
+    white-space: nowrap;
 }
 
 .fragment-slots {
     display: flex;
-    gap: 8px;
+    gap: 6px;
 }
 
 .fragment-slot {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: #cfd8dc;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
-    opacity: 0.45;
+    font-size: 1rem;
+    opacity: 0.4;
     transition: all 0.35s ease;
     cursor: help;
 }
 
 .fragment-slot.collected {
     opacity: 1;
-    transform: scale(1.1);
+    transform: scale(1.12);
     background: #fff;
-    box-shadow: 0 0 12px rgba(255, 193, 7, 0.8);
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.8);
 }
 
 .hud-right {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    flex-shrink: 0;
 }
 
 .btn-hud-tool {
     background: #f1f5f9;
     border: 1px solid #cbd5e1;
     color: #475569;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 18px;
+    font-size: 0.82rem;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .btn-hud-tool:hover {
@@ -357,8 +389,8 @@ body {
    ========================================== */
 .game-stage {
     position: relative;
-    flex: 1;
-    min-height: 250px;
+    flex: 1 1 auto;
+    min-height: 120px;
     overflow: hidden;
     display: flex;
     align-items: flex-end;
@@ -373,42 +405,37 @@ body {
     background-position: center;
 }
 
-/* 序章背景：和緩微風午後 */
 .bg-ch0 {
     background: linear-gradient(180deg, #b3e5fc 0%, #e1f5fe 40%, #81c784 75%, #00897b 100%);
 }
 
-/* 第一章背景：古代水路時光之門（暖黃褐色微光懷舊水鄉） */
 .bg-ch1 {
     background: linear-gradient(180deg, #ffe082 0%, #fff9c4 40%, #a5d6a7 70%, #00695c 100%);
 }
 
-/* 第二章背景：現代瓦磘溝綠意水岸 */
 .bg-ch2 {
     background: linear-gradient(180deg, #81d4fa 0%, #c8e6c9 45%, #4caf50 75%, #004d40 100%);
 }
 
-/* 第三章背景：黑水翻騰濁水危機 */
 .bg-ch3 {
     background: linear-gradient(180deg, #546e7a 0%, #37474f 40%, #4e342e 75%, #263238 100%);
 }
 
-/* 終章背景：重生七彩朝陽清澈水流 */
 .bg-ch4 {
     background: linear-gradient(180deg, #ffcc80 0%, #80deea 35%, #4db6ac 70%, #004d40 100%);
 }
 
-/* 角色立繪展示容器 */
+/* 角色立繪容器 */
 .stage-characters {
     position: relative;
     z-index: 10;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    gap: 3.5rem;
+    gap: clamp(1rem, 4vw, 3rem);
     width: 100%;
-    max-width: 1100px;
-    padding-bottom: 15px;
+    max-width: 1000px;
+    padding-bottom: 8px;
     pointer-events: none;
 }
 
@@ -420,8 +447,8 @@ body {
 }
 
 .char-sprite-wrap {
-    width: 140px;
-    height: 140px;
+    width: clamp(75px, 15vw, 130px);
+    height: clamp(75px, 15vw, 130px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -430,23 +457,24 @@ body {
 .avatar-svg {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.25));
 }
 
 .char-name-plate {
-    margin-top: 6px;
+    margin-top: 4px;
     background: rgba(255, 255, 255, 0.95);
     color: var(--text-main);
-    padding: 3px 12px;
-    border-radius: 14px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: clamp(0.72rem, 1.8vw, 0.82rem);
+    font-weight: 800;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
     border-bottom: 3px solid #00897b;
+    white-space: nowrap;
 }
 
 /* ==========================================
-   五、下半部控制台：互動區與對話框
+   五、控制台：互動區與對話框
    ========================================== */
 .game-console {
     position: relative;
@@ -455,43 +483,49 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 16px 16px 16px;
-    gap: 12px;
+    padding: 0 10px 10px 10px;
+    gap: 8px;
+    flex-shrink: 0;
+    max-height: 65vh;
 }
 
 /* 互動任務操作面板 */
 .interaction-area {
     width: 100%;
-    max-width: 960px;
+    max-width: 900px;
     background: var(--card-glass);
     backdrop-filter: blur(14px);
-    border-radius: 20px;
-    padding: 1.2rem;
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 18px;
+    padding: clamp(0.8rem, 2vw, 1.2rem);
     box-shadow: var(--shadow-float);
     border: 2px solid var(--border-glass);
-    max-height: 280px;
+    max-height: clamp(160px, 34vh, 260px);
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .interaction-prompt {
-    font-size: 1.15rem;
-    font-weight: 700;
+    font-size: clamp(0.95rem, 2.4vw, 1.15rem);
+    font-weight: 800;
     color: var(--primary-dark);
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.6rem;
+    line-height: 1.4;
 }
 
 .choice-buttons {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 }
 
 .quiz-feedback {
-    padding: 10px 16px;
+    padding: 8px 14px;
     border-radius: 12px;
-    font-size: 0.98rem;
+    font-size: clamp(0.88rem, 2vw, 0.96rem);
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    line-height: 1.4;
 }
 
 .correct-feedback {
@@ -506,43 +540,47 @@ body {
     border: 1px solid #fff59d;
 }
 
-/* 歷史尋寶與生物畫布 */
+/* 歷史水路尋寶畫布 */
 .hunt-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    gap: 8px;
 }
 
 .hunt-instruction {
-    font-weight: 700;
+    font-weight: 800;
     color: var(--primary-dark);
+    font-size: clamp(0.85rem, 2vw, 0.98rem);
 }
 
 .hunt-counter {
     background: var(--primary-light);
     color: var(--primary-color);
     font-weight: 800;
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 14px;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .historical-canvas {
     position: relative;
     width: 100%;
-    height: 180px;
+    height: clamp(130px, 22vh, 170px);
     background: linear-gradient(135deg, #fff8e1 0%, #e0f2f1 100%);
-    border-radius: 16px;
+    border-radius: 14px;
     border: 2px dashed #80cbc4;
     overflow: hidden;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .hunt-hotspot {
     position: absolute;
-    width: 52px;
-    height: 52px;
+    width: clamp(42px, 9vw, 54px);
+    height: clamp(42px, 9vw, 54px);
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -557,18 +595,18 @@ body {
 }
 
 .hotspot-icon {
-    font-size: 2rem;
-    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
 
 .hotspot-label {
-    font-size: 0.72rem;
-    font-weight: 700;
+    font-size: clamp(0.65rem, 1.8vw, 0.72rem);
+    font-weight: 800;
     background: rgba(255, 255, 255, 0.95);
-    padding: 2px 6px;
-    border-radius: 8px;
+    padding: 1px 5px;
+    border-radius: 6px;
     white-space: nowrap;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .hunt-hotspot.discovered .hotspot-pulse {
@@ -576,43 +614,45 @@ body {
 }
 
 .hunt-hotspot.discovered {
-    opacity: 0.65;
+    opacity: 0.6;
 }
 
 .hunt-detail-box {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     background: #e8f5e9;
-    padding: 10px 14px;
+    padding: 8px 12px;
     border-radius: 12px;
     border: 1px solid #c8e6c9;
+    font-size: 0.9rem;
 }
 
 .detail-icon {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    flex-shrink: 0;
 }
 
 .all-cleared-msg {
     color: #2e7d32;
     font-weight: 800;
-    font-size: 0.95rem;
-    margin-top: 6px;
+    font-size: 0.92rem;
+    margin-top: 4px;
 }
 
-/* 生態動植物網格 */
+/* 生態動植物網格 (RWD 網格自適應) */
 .creature-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 10px;
-    margin-top: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+    gap: 8px;
+    margin-top: 6px;
 }
 
 .creature-card {
     background: #fff;
     border: 2px solid #b2dfdb;
-    border-radius: 14px;
-    padding: 10px 6px;
+    border-radius: 12px;
+    padding: 8px 4px;
     text-align: center;
     cursor: pointer;
     position: relative;
@@ -621,8 +661,8 @@ body {
 
 .creature-card:hover {
     border-color: var(--primary-color);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
 .creature-card.collected {
@@ -631,31 +671,31 @@ body {
 }
 
 .creature-card-icon {
-    font-size: 2.2rem;
-    margin-bottom: 4px;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    margin-bottom: 2px;
 }
 
 .creature-card-name {
-    font-weight: 700;
-    font-size: 0.95rem;
+    font-weight: 800;
+    font-size: clamp(0.82rem, 2vw, 0.92rem);
     color: var(--primary-dark);
 }
 
 .creature-card-role {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--text-muted);
 }
 
 .creature-check-badge {
     position: absolute;
-    top: -6px;
-    right: -6px;
-    width: 22px;
-    height: 22px;
+    top: -5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
     background: #43a047;
     color: #fff;
     border-radius: 50%;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     display: none;
     align-items: center;
     justify-content: center;
@@ -669,70 +709,77 @@ body {
 .creature-modal {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 16px;
 }
 
 .creature-popup-inner {
     background: #fff;
-    border-radius: 24px;
-    padding: 2rem;
-    max-width: 520px;
-    width: 90%;
+    border-radius: 22px;
+    padding: clamp(1.2rem, 3vw, 1.8rem);
+    max-width: 480px;
+    width: 100%;
     text-align: center;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    max-height: 85vh;
+    overflow-y: auto;
 }
 
 .popup-icon {
-    font-size: 3.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 3rem;
+    margin-bottom: 0.4rem;
 }
 
 .popup-question {
-    font-size: 1.1rem;
-    font-weight: 700;
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    font-weight: 800;
     color: var(--text-main);
-    margin: 1rem 0;
+    margin: 0.8rem 0;
+    line-height: 1.45;
 }
 
 /* 垃圾清理場景 */
 .trash-scene-area {
     position: relative;
     width: 100%;
-    height: 160px;
+    height: clamp(110px, 18vh, 150px);
     background: #e8f5e9;
-    border-radius: 16px;
+    border-radius: 14px;
     border: 2px dashed #a5d6a7;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 10px;
+    padding: 6px;
 }
 
 .trash-item {
     cursor: pointer;
     text-align: center;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
 }
 
 .trash-item:hover {
-    transform: scale(1.15) rotate(5deg);
+    transform: scale(1.15) rotate(4deg);
 }
 
 .trash-icon-wrap {
-    font-size: 2.8rem;
+    font-size: clamp(2rem, 5vw, 2.7rem);
 }
 
 .trash-tag {
-    font-size: 0.8rem;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-weight: 700;
+    font-size: 0.72rem;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-weight: 800;
+    white-space: nowrap;
+    display: block;
 }
 
 .trash-item.cleaned {
@@ -742,37 +789,39 @@ body {
 }
 
 .trash-info-box {
-    margin-top: 10px;
+    margin-top: 8px;
     background: #fff;
-    padding: 10px 14px;
-    border-radius: 12px;
-    border-left: 5px solid #e53935;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border-left: 4px solid #e53935;
+    font-size: 0.88rem;
+    line-height: 1.4;
 }
 
 .info-title {
-    font-weight: 700;
+    font-weight: 800;
     color: #2e7d32;
 }
 
 .info-danger {
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     color: #c62828;
 }
 
 /* 污染知識卡片 */
 .knowledge-cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 8px;
 }
 
 .knowledge-card {
     background: #fff;
     border: 2px solid #b0bec5;
-    border-radius: 16px;
-    padding: 12px;
+    border-radius: 14px;
+    padding: 10px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
 }
 
 .knowledge-card:hover {
@@ -786,37 +835,38 @@ body {
 }
 
 .card-icon {
-    font-size: 2.2rem;
-    margin-bottom: 6px;
+    font-size: 1.8rem;
+    margin-bottom: 4px;
 }
 
 .card-badge {
     display: inline-block;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     background: #fee2e2;
     color: #b91c1c;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-weight: 700;
-    margin-bottom: 6px;
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-weight: 800;
+    margin-bottom: 4px;
 }
 
 .card-title {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--text-main);
-    margin-bottom: 6px;
+    margin-bottom: 4px;
+    font-weight: 800;
 }
 
 .card-flip-hint {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--primary-color);
     font-weight: 700;
 }
 
 .card-section {
-    font-size: 0.82rem;
-    margin-top: 6px;
-    line-height: 1.4;
+    font-size: 0.78rem;
+    margin-top: 5px;
+    line-height: 1.35;
 }
 
 .card-section strong {
@@ -829,66 +879,70 @@ body {
 }
 
 .pledge-symbol {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
 }
 
 .pledge-header h3 {
     color: var(--primary-dark);
-    font-size: 1.3rem;
-    margin-bottom: 4px;
+    font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+    margin-bottom: 3px;
 }
 
 .pledge-input-group {
-    margin: 1rem 0;
+    margin: 0.8rem 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .input-name {
-    font-size: 1.1rem;
-    padding: 8px 14px;
-    border-radius: 12px;
+    font-size: 1rem;
+    padding: 6px 12px;
+    border-radius: 10px;
     border: 2px solid #80cbc4;
     outline: none;
-    font-weight: 700;
+    font-weight: 800;
     color: #004d40;
+    max-width: 200px;
 }
 
 .pledge-promises {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     text-align: left;
-    max-width: 580px;
-    margin: 0 auto 1.2rem auto;
+    max-width: 540px;
+    margin: 0 auto 1rem auto;
 }
 
 .promise-item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     background: #f1f5f9;
-    padding: 8px 12px;
-    border-radius: 10px;
+    padding: 6px 10px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 0.92rem;
+    font-size: clamp(0.8rem, 2vw, 0.88rem);
+    line-height: 1.35;
 }
 
 /* 對話框（Dialogue Box） */
 .dialogue-box {
     width: 100%;
-    max-width: 960px;
-    min-height: 110px;
+    max-width: 900px;
+    min-height: 85px;
     background: var(--card-glass);
     backdrop-filter: blur(14px);
-    border-radius: 20px;
-    padding: 14px 20px;
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 18px;
+    padding: 10px 14px;
     box-shadow: var(--shadow-float);
     border: 2px solid var(--border-glass);
     display: flex;
-    gap: 18px;
+    gap: 12px;
     align-items: center;
     cursor: pointer;
     position: relative;
@@ -900,12 +954,12 @@ body {
 }
 
 .dialogue-speaker-avatar {
-    width: 72px;
-    height: 72px;
+    width: clamp(52px, 11vw, 68px);
+    height: clamp(52px, 11vw, 68px);
     flex-shrink: 0;
     background: #fff;
     border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -919,41 +973,48 @@ body {
 }
 
 .dialogue-body {
-    flex: 1;
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
 .speaker-meta {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 4px;
+    gap: 6px;
+    margin-bottom: 2px;
     flex-wrap: wrap;
 }
 
 .speaker-name {
-    font-size: 1.15rem;
-    font-weight: 800;
+    font-size: clamp(0.95rem, 2.3vw, 1.1rem);
+    font-weight: 900;
 }
 
 .speaker-title {
-    font-size: 0.8rem;
+    font-size: 0.72rem;
     background: #e2e8f0;
     color: #475569;
-    padding: 2px 8px;
-    border-radius: 12px;
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-weight: 700;
 }
 
 .speaker-catchphrase {
-    font-size: 0.82rem;
+    font-size: 0.75rem;
     color: #78909c;
     font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 320px;
 }
 
 .dialogue-text {
-    font-size: 1.12rem;
+    font-size: clamp(0.92rem, 2.2vw, 1.05rem);
     color: #1e293b;
-    font-weight: 500;
-    line-height: 1.6;
+    font-weight: 600;
+    line-height: 1.5;
+    word-break: break-word;
 }
 
 .dialogue-advance-hint {
@@ -964,13 +1025,13 @@ body {
     background: #e0f2f1;
     color: var(--primary-color);
     border: none;
-    width: 44px;
-    height: 44px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    font-size: 1.2rem;
-    font-weight: 800;
+    font-size: 1rem;
+    font-weight: 900;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 137, 123, 0.2);
+    box-shadow: 0 3px 8px rgba(0, 137, 123, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -990,61 +1051,57 @@ body {
     position: fixed;
     inset: 0;
     z-index: 500;
-    background: rgba(0, 20, 15, 0.7);
+    background: rgba(0, 20, 15, 0.72);
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 14px;
 }
 
 .modal-container {
     position: relative;
     background: #fff;
     width: 100%;
-    max-width: 860px;
+    max-width: 780px;
     max-height: 90vh;
-    border-radius: 28px;
-    padding: 2.2rem;
+    border-radius: 24px;
+    padding: clamp(1.2rem, 3vw, 2rem);
     overflow-y: auto;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
 }
 
 .modal-close-btn {
     position: absolute;
-    top: 18px;
-    right: 22px;
+    top: 14px;
+    right: 16px;
     background: #f1f5f9;
     border: none;
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #64748b;
     cursor: pointer;
-}
-
-.modal-close-btn:hover {
-    background: #e2e8f0;
-    color: #0f172a;
 }
 
 /* 記憶碎片解鎖彈窗 */
 .fragment-unlock-modal {
     position: relative;
     text-align: center;
-    padding: 1.5rem 0;
+    padding: 1rem 0;
 }
 
 .fragment-big-icon {
-    font-size: 4.8rem;
-    margin-bottom: 0.5rem;
+    font-size: clamp(3.2rem, 8vw, 4.5rem);
+    margin-bottom: 0.3rem;
 }
 
 .fragment-title {
-    font-size: 1.8rem;
+    font-size: clamp(1.3rem, 3.5vw, 1.7rem);
     color: var(--primary-dark);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
 }
 
 .fragment-badge-title {
@@ -1052,17 +1109,18 @@ body {
     background: #fef3c7;
     color: #b45309;
     font-weight: 800;
-    padding: 6px 18px;
-    border-radius: 20px;
-    font-size: 1rem;
-    margin-bottom: 1rem;
+    padding: 4px 14px;
+    border-radius: 18px;
+    font-size: 0.92rem;
+    margin-bottom: 0.8rem;
 }
 
 .fragment-desc {
-    font-size: 1.1rem;
+    font-size: clamp(0.92rem, 2.2vw, 1.05rem);
     color: var(--text-muted);
-    max-width: 520px;
-    margin: 0 auto 1.8rem auto;
+    max-width: 480px;
+    margin: 0 auto 1.4rem auto;
+    line-height: 1.5;
 }
 
 /* 證書彈窗 */
@@ -1071,13 +1129,13 @@ body {
 }
 
 .cert-congrats-header h2 {
-    font-size: 1.8rem;
+    font-size: clamp(1.25rem, 3vw, 1.6rem);
     color: var(--primary-dark);
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
 }
 
 .cert-canvas-container {
-    margin: 1.2rem 0;
+    margin: 1rem 0;
     display: flex;
     justify-content: center;
 }
@@ -1085,28 +1143,28 @@ body {
 #cert-canvas {
     max-width: 100%;
     height: auto;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
 
 .cert-actions {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: 8px;
     flex-wrap: wrap;
-    margin-top: 1rem;
+    margin-top: 0.8rem;
 }
 
 /* 章節選單彈窗 */
 .chapters-modal h3 {
     color: var(--primary-dark);
-    margin-bottom: 1.2rem;
+    margin-bottom: 1rem;
 }
 
 .chapter-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
 .chapter-item {
@@ -1115,8 +1173,9 @@ body {
     justify-content: space-between;
     background: #f8fafc;
     border: 2px solid #e2e8f0;
-    padding: 12px 16px;
-    border-radius: 16px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    gap: 8px;
 }
 
 .chapter-item.current {
@@ -1127,89 +1186,143 @@ body {
 .chap-badge {
     background: var(--primary-color);
     color: #fff;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 0.85rem;
-    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    flex-shrink: 0;
 }
 
 .chap-name {
-    font-weight: 700;
-    font-size: 1.05rem;
+    font-weight: 800;
+    font-size: clamp(0.88rem, 2.2vw, 1rem);
 }
 
 .chap-time {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
 }
 
 /* 導讀手冊 */
 .guide-modal-content h2 {
     color: var(--primary-dark);
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
 }
 
 .guide-intro {
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     color: #475569;
-    margin-bottom: 1.2rem;
+    margin-bottom: 1rem;
+    line-height: 1.55;
 }
 
 .guide-section {
     background: #f8fafc;
-    border-radius: 16px;
-    padding: 14px;
-    margin-bottom: 12px;
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 10px;
 }
 
 .guide-section h3 {
     color: var(--primary-color);
-    font-size: 1.1rem;
-    margin-bottom: 8px;
+    font-size: 1rem;
+    margin-bottom: 6px;
 }
 
 .guide-section ul {
-    padding-left: 20px;
+    padding-left: 18px;
     color: #334155;
-    line-height: 1.6;
+    line-height: 1.55;
+    font-size: 0.88rem;
 }
 
 /* ==========================================
-   七、行動裝置與平板響應式優化
+   七、精準 RWD 響應式斷點處理
    ========================================== */
-@media (max-width: 768px) {
-    .game-main-title {
-        font-size: 2.2rem;
-    }
 
-    .hud-mission,
-    .inventory-label {
-        display: none;
+/* 1. 直向手機模式 (Mobile Portrait: <= 640px) */
+@media (max-width: 640px) {
+    .cover-content {
+        padding: 1.6rem 1.2rem;
+        border-radius: 20px;
     }
-
+    .start-button-group {
+        flex-direction: column;
+    }
+    .start-button-group button {
+        width: 100%;
+    }
+    .hud-mission, .inventory-label, .speaker-catchphrase {
+        display: none !important;
+    }
+    .game-stage {
+        min-height: 90px;
+    }
     .stage-characters {
-        gap: 1.2rem;
+        gap: 0.6rem;
     }
-
     .char-sprite-wrap {
-        width: 95px;
-        height: 95px;
+        width: 68px;
+        height: 68px;
     }
-
     .dialogue-speaker-avatar {
-        width: 54px;
-        height: 54px;
+        width: 48px;
+        height: 48px;
     }
-
-    .dialogue-text {
-        font-size: 1rem;
+    .dialogue-box {
+        padding: 8px 10px;
+        gap: 8px;
     }
-
     .creature-grid {
         grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
     }
+    .knowledge-cards-grid {
+        grid-template-columns: 1fr;
+    }
+    .btn-hud-tool {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+    .cert-actions {
+        flex-direction: column;
+    }
+    .cert-actions button {
+        width: 100%;
+    }
+}
 
-    .modal-container {
-        padding: 1.5rem;
+/* 2. 手機橫向模式 (Mobile Landscape: max-height <= 500px) */
+@media (max-height: 500px) and (orientation: landscape) {
+    .game-stage {
+        min-height: 70px;
+    }
+    .char-sprite-wrap {
+        width: 55px;
+        height: 55px;
+    }
+    .char-name-plate {
+        display: none;
+    }
+    .game-console {
+        padding-bottom: 4px;
+        gap: 4px;
+    }
+    .interaction-area {
+        max-height: 120px;
+        padding: 0.6rem;
+    }
+    .dialogue-box {
+        min-height: 60px;
+        padding: 6px 10px;
+    }
+    .dialogue-speaker-avatar {
+        width: 42px;
+        height: 42px;
+    }
+    .dialogue-text {
+        font-size: 0.88rem;
+        line-height: 1.35;
     }
 }

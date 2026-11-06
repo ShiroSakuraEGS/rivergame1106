@@ -1,6 +1,6 @@
 /**
  * 《瓦磘溝探索之旅》入口程式
- * 負責程式初始化與主畫面事件掛載
+ * 負責程式初始化、全域事件、RWD 適配與 PWA Service Worker 註冊
  */
 
 let game = null;
@@ -9,6 +9,26 @@ document.addEventListener("DOMContentLoaded", () => {
     // 實例化遊戲引擎
     game = new GameEngine(STORY_DATA);
     game.init();
+
+    // 註冊 PWA Service Worker (支援離線快取與安裝)
+    if ("serviceWorker" in navigator && (window.location.protocol === "https:" || window.location.hostname === "localhost")) {
+        window.addEventListener("load", () => {
+            navigator.serviceWorker.register("./sw.js")
+                .then(reg => console.log("瓦磘溝探索之旅 Service Worker 註冊成功", reg.scope))
+                .catch(err => console.warn("Service Worker 註冊失敗：", err));
+        });
+    }
+
+    // 行動裝置音訊解鎖保險：使用者於頁面任意處首次觸碰/點擊時喚醒 AudioContext
+    const unlockAudio = () => {
+        if (typeof audioMgr !== "undefined" && audioMgr) {
+            audioMgr.initContext();
+        }
+        window.removeEventListener("touchstart", unlockAudio);
+        window.removeEventListener("pointerdown", unlockAudio);
+    };
+    window.addEventListener("touchstart", unlockAudio, { passive: true });
+    window.addEventListener("pointerdown", unlockAudio, { passive: true });
 
     // 綁定封面開始探索按鈕
     const btnStart = document.getElementById("btn-start-game");
@@ -46,11 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
 
                     <div class="guide-section">
-                        <h3>🎮 遊玩指南</h3>
+                        <h3>📱 多載具與行動裝置支援 (RWD)</h3>
                         <ul>
-                            <li>遊戲時間約 20–25 分鐘，可由學生自學或教師於課堂引導帶讀。</li>
-                            <li>互動採正向鼓勵機制，答錯會提供親切提示，不扣分、不中斷探索。</li>
-                            <li>完成三章考驗後，可生成專屬姓名證書，並下載儲存。</li>
+                            <li><strong>手機與平板自適應：</strong>無論是直向、橫向或全螢幕觸控，介面均會彈性調整最佳字級與觸控熱區。</li>
+                            <li><strong>離線支援：</strong>支援 PWA 離線快取，戶外河岸走讀時無網路亦可順暢遊玩。</li>
+                            <li><strong>免除挫敗：</strong>答錯提供親切引導與線索提示，不扣分、不中斷探索。</li>
                         </ul>
                     </div>
 
@@ -93,4 +113,3 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-

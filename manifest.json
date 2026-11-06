@@ -1,0 +1,18 @@
+{
+  "name": "瓦磘溝探索之旅：消失的河川記憶",
+  "short_name": "瓦磘溝探索",
+  "description": "兒童互動式河川教育遊戲，一場關於河流、居民、動物與守護的冒險",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#004d40",
+  "theme_color": "#00897b",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "assets/images/cover.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
