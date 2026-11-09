@@ -1,172 +1,254 @@
 /**
- * 《瓦磘溝探索之旅》特效與動畫樣式表
+ * 《瓦磘溝探索之旅》動畫特效樣式表
+ * 設計系統：Claymorphism + 像素風點綴
+ * UI/UX Pro Max 建議：soft bounce (cubic-bezier 0.34, 1.56)、彈性回彈、stagger 淡入
  */
 
-/* 淡入動畫 */
+/* ==========================================
+   一、頁面轉換動畫
+   ========================================== */
 .fade-in {
-    animation: fadeIn 0.4s ease-out forwards;
+    animation: fadeInUp 0.4s cubic-bezier(0.34, 1.56) forwards;
 }
 
-@keyframes fadeIn {
+@keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(8px);
+        transform: translateY(14px) scale(0.97);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
-/* 淡出動畫 */
 .fade-out {
-    animation: fadeOut 0.5s ease-in forwards;
+    animation: fadeOut 0.45s ease-in forwards;
 }
 
 @keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
+    from { opacity: 1; transform: scale(1); }
+    to   { opacity: 0; transform: scale(0.97); }
 }
 
-/* 角色上下緩慢浮動（水波呼吸感） */
+/* ==========================================
+   二、角色立繪動畫（Claymorphism 彈性浮動）
+   ========================================== */
 .stage-char {
-    animation: floatGentle 3.5s ease-in-out infinite alternate;
+    animation: clayFloat 3.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate;
 }
 
-.stage-char:nth-child(even) {
-    animation-duration: 4.2s;
-    animation-delay: -1.5s;
+.stage-char:nth-child(2) {
+    animation-duration: 4.1s;
+    animation-delay: -1.3s;
+}
+.stage-char:nth-child(3) {
+    animation-duration: 3.3s;
+    animation-delay: -2.1s;
+}
+.stage-char:nth-child(4) {
+    animation-duration: 4.5s;
+    animation-delay: -0.8s;
 }
 
-@keyframes floatGentle {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: translateY(-10px);
-    }
+@keyframes clayFloat {
+    0%   { transform: translateY(0px) rotate(-0.5deg); }
+    100% { transform: translateY(-12px) rotate(0.5deg); }
 }
 
-/* 當前正在說話的角色高亮與微幅擺動 */
+/* 說話角色特效：Claymorphism 軟彈跳放大 + 光暈 */
 .stage-char.speaking {
-    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9));
-    transform: scale(1.06);
-    z-index: 5;
-    animation: speakPulse 2s ease-in-out infinite alternate;
+    animation: claySpeaking 1.8s cubic-bezier(0.34, 1.56) infinite alternate;
+    z-index: 10;
 }
 
-@keyframes speakPulse {
+@keyframes claySpeaking {
     0% {
-        transform: scale(1.05) translateY(-2px);
+        transform: scale(1.04) translateY(-3px);
+        filter: drop-shadow(0 0 10px rgba(13, 148, 136, 0.5));
     }
     100% {
-        transform: scale(1.08) translateY(-8px);
+        transform: scale(1.08) translateY(-10px);
+        filter: drop-shadow(0 0 20px rgba(13, 148, 136, 0.9)) drop-shadow(0 4px 8px rgba(0,0,0,0.3));
     }
 }
 
-/* 水滴微光脈動 */
-.water-glow {
-    animation: waterGlowPulse 2.5s infinite alternate;
+/* ==========================================
+   三、Claymorphism 按鈕互動
+   ========================================== */
+/* 按鈕柔和壓下效果（200ms ease-out，Claymorphism 規範） */
+@keyframes clayPress {
+    0%  { transform: scale(1) translateY(0); box-shadow: var(--clay-shadow); }
+    50% { transform: scale(0.95) translateY(3px); box-shadow: 2px 2px 4px rgba(0,0,0,0.25); }
+    100%{ transform: scale(1) translateY(0); box-shadow: var(--clay-shadow); }
 }
 
-@keyframes waterGlowPulse {
-    0% {
-        box-shadow: 0 0 10px rgba(52, 152, 219, 0.4);
-    }
-    100% {
-        box-shadow: 0 0 25px rgba(52, 152, 219, 0.85);
-    }
+.clay-pressed {
+    animation: clayPress 200ms ease-out forwards;
 }
 
-/* 尋寶熱點脈衝波紋 */
-.hotspot-pulse {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: rgba(255, 215, 0, 0.45);
-    animation: ripple 1.8s ease-out infinite;
-    pointer-events: none;
+/* 正確答案彈跳慶祝 */
+@keyframes correctBounce {
+    0%   { transform: scale(1); }
+    30%  { transform: scale(1.12); }
+    60%  { transform: scale(0.96); }
+    80%  { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
-@keyframes ripple {
-    0% {
-        transform: scale(0.8);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(2.2);
-        opacity: 0;
-    }
+.correct-bounce {
+    animation: correctBounce 0.5s cubic-bezier(0.34, 1.56);
 }
 
-/* 元素錯誤晃動 */
-.shake-anim {
-    animation: shake 0.4s ease-in-out;
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20%, 60% { transform: translateX(-8px); }
-    40%, 80% { transform: translateX(8px); }
-}
-
-/* 記憶碎片光芒爆發特效 */
+/* ==========================================
+   四、記憶碎片解鎖特效
+   ========================================== */
 .fragment-burst-glow {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(255, 235, 59, 0.8) 0%, rgba(255, 193, 7, 0.2) 60%, transparent 80%);
+    width: 240px;
+    height: 240px;
+    background: conic-gradient(
+        from 0deg,
+        rgba(255, 215, 0, 0.6),
+        rgba(45, 212, 191, 0.4),
+        rgba(249, 115, 22, 0.5),
+        rgba(255, 215, 0, 0.6)
+    );
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    animation: burstSpin 6s linear infinite;
+    animation: fragmentSpin 5s linear infinite;
+    filter: blur(8px);
     z-index: -1;
 }
 
-@keyframes burstSpin {
-    0% {
-        transform: translate(-50%, -50%) rotate(0deg) scale(0.9);
+@keyframes fragmentSpin {
+    0%   { transform: translate(-50%, -50%) rotate(0deg) scale(0.9); }
+    50%  { transform: translate(-50%, -50%) rotate(180deg) scale(1.2); }
+    100% { transform: translate(-50%, -50%) rotate(360deg) scale(0.9); }
+}
+
+/* ==========================================
+   五、尋寶熱點波紋（Pixel-art 風格環形脈衝）
+   ========================================== */
+.hotspot-pulse {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 193, 7, 0.9);
+    animation: pixelRipple 1.6s ease-out infinite;
+    pointer-events: none;
+}
+
+@keyframes pixelRipple {
+    0%   { transform: scale(0.8); opacity: 1; }
+    100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* ==========================================
+   六、晃動錯誤提示
+   ========================================== */
+.shake-anim {
+    animation: clayShake 0.45s ease-in-out;
+}
+
+@keyframes clayShake {
+    0%, 100% { transform: translateX(0); }
+    15%, 55%  { transform: translateX(-8px) rotate(-1deg); }
+    35%, 75%  { transform: translateX(8px) rotate(1deg); }
+}
+
+/* ==========================================
+   七、Stagger 卡片列表登場動畫
+   ========================================== */
+.creature-card, .knowledge-card {
+    animation: clayCardIn 0.4s cubic-bezier(0.34, 1.56) both;
+}
+
+.creature-card:nth-child(1), .knowledge-card:nth-child(1) { animation-delay: 0.05s; }
+.creature-card:nth-child(2), .knowledge-card:nth-child(2) { animation-delay: 0.10s; }
+.creature-card:nth-child(3), .knowledge-card:nth-child(3) { animation-delay: 0.15s; }
+.creature-card:nth-child(4), .knowledge-card:nth-child(4) { animation-delay: 0.20s; }
+.creature-card:nth-child(5), .knowledge-card:nth-child(5) { animation-delay: 0.25s; }
+.creature-card:nth-child(6), .knowledge-card:nth-child(6) { animation-delay: 0.30s; }
+
+@keyframes clayCardIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.92);
     }
-    50% {
-        transform: translate(-50%, -50%) rotate(180deg) scale(1.15);
-    }
-    100% {
-        transform: translate(-50%, -50%) rotate(360deg) scale(0.9);
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }
 
-/* 水波流動背景線條 */
-@keyframes riverFlow {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-/* 對話游標閃爍 */
+/* ==========================================
+   八、對話打字機游標閃爍
+   ========================================== */
 .cursor-blink {
     display: inline-block;
     width: 3px;
     height: 1.1em;
-    background-color: #00897b;
-    margin-left: 3px;
+    background-color: #0D9488;
+    margin-left: 2px;
     vertical-align: middle;
-    animation: blink 0.8s infinite;
+    animation: blink 0.7s infinite;
+    border-radius: 2px;
 }
 
 @keyframes blink {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+    50%       { opacity: 0; }
 }
 
+/* ==========================================
+   九、HUD 碎片槽收集特效
+   ========================================== */
+@keyframes slotCollected {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.4) rotate(15deg); }
+    70%  { transform: scale(0.9) rotate(-5deg); }
+    100% { transform: scale(1.1) rotate(0deg); }
+}
+
+.fragment-slot.just-collected {
+    animation: slotCollected 0.6s cubic-bezier(0.34, 1.56) forwards;
+}
+
+/* ==========================================
+   十、背景河川流動漸層動畫
+   ========================================== */
+@keyframes riverFlow {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ==========================================
+   十一、像素邊框打字機入場
+   ========================================== */
+@keyframes pixelReveal {
+    from {
+        clip-path: inset(0 100% 0 0);
+        opacity: 0.4;
+    }
+    to {
+        clip-path: inset(0 0% 0 0);
+        opacity: 1;
+    }
+}
+
+/* ==========================================
+   十二、垃圾清理消散動畫
+   ========================================== */
+.trash-item.cleaned {
+    animation: trashPop 0.4s cubic-bezier(0.34, 1.56) forwards;
+}
+
+@keyframes trashPop {
+    0%   { transform: scale(1); opacity: 1; }
+    40%  { transform: scale(1.3) rotate(10deg); opacity: 0.8; }
+    100% { transform: scale(0.1) rotate(-30deg); opacity: 0; }
+}

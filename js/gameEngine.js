@@ -491,6 +491,13 @@ class GameEngine {
         this.renderHUD();
         audioMgr.playFragmentUnlock();
 
+        // HUD 碎片槽收集特效
+        const slot = this.dom.fragmentSlots[fragmentId];
+        if (slot) {
+            slot.classList.add("just-collected");
+            setTimeout(() => slot.classList.remove("just-collected"), 700);
+        }
+
         // 彈跳解鎖視窗
         this.showModal(`
             <div class="fragment-unlock-modal">
@@ -1124,80 +1131,152 @@ class GameEngine {
         });
     }
 
-    // 繪製高解析度榮譽證書 Canvas
+    // 繪製高解析度榮譽證書 Canvas（Claymorphism + Fredoka/Nunito 風格）
     drawCertificate(canvas, name, dateStr) {
         const ctx = canvas.getContext("2d");
         const w = canvas.width;
         const h = canvas.height;
+        const FONT_H = "'Fredoka', 'Nunito', 'Noto Sans TC', sans-serif";
+        const FONT_B = "'Nunito', 'Noto Sans TC', sans-serif";
 
-        // 背景漸層
+        // Claymorphism 漸層背景
         const grad = ctx.createLinearGradient(0, 0, w, h);
-        grad.addColorStop(0, "#f7fcfd");
-        grad.addColorStop(1, "#e0f2f1");
+        grad.addColorStop(0, "#F0FDFA");
+        grad.addColorStop(0.5, "#CCFBF1");
+        grad.addColorStop(1, "#BAE6FD");
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, w, h);
 
-        // 典雅外邊框
-        ctx.strokeStyle = "#00897b";
-        ctx.lineWidth = 14;
-        ctx.strokeRect(18, 18, w - 36, h - 36);
+        // 波浪裝飾橢圓
+        ctx.fillStyle = "rgba(13, 148, 136, 0.08)";
+        ctx.beginPath();
+        ctx.ellipse(w / 2, h + 60, w * 0.75, 100, 0, 0, Math.PI * 2);
+        ctx.fill();
 
-        ctx.strokeStyle = "#80cbc4";
+        // 外框陰影（Claymorphism 立體感）
+        ctx.fillStyle = "rgba(13, 148, 136, 0.15)";
+        ctx.beginPath();
+        ctx.roundRect(16, 16, w - 32, h - 32, 20);
+        ctx.fill();
+
+        // 主邊框
+        ctx.strokeStyle = "#0D9488";
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.roundRect(20, 20, w - 40, h - 40, 18);
+        ctx.stroke();
+
+        // 內框
+        ctx.strokeStyle = "#2DD4BF";
         ctx.lineWidth = 3;
-        ctx.strokeRect(28, 28, w - 56, h - 56);
+        ctx.beginPath();
+        ctx.roundRect(30, 30, w - 60, h - 60, 14);
+        ctx.stroke();
 
-        // 主標題
+        // 四角像素菱形裝飾
+        [[45, 45], [w - 45, 45], [45, h - 45], [w - 45, h - 45]].forEach(([cx, cy]) => {
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(Math.PI / 4);
+            ctx.fillStyle = "#0D9488";
+            ctx.fillRect(-6, -6, 12, 12);
+            ctx.restore();
+        });
+
+        // 頂部橫線
+        ctx.fillStyle = "#0D9488";
+        ctx.fillRect(60, 50, w - 120, 6);
+        ctx.fillStyle = "#2DD4BF";
+        ctx.fillRect(80, 60, w - 160, 3);
+
+        // 主標題（Fredoka 字型）
         ctx.textAlign = "center";
-        ctx.fillStyle = "#00695c";
-        ctx.font = "bold 32px 'Noto Sans TC', sans-serif";
-        ctx.fillText("《瓦磘溝探索之旅》榮譽認證", w / 2, 85);
+        ctx.fillStyle = "#0F4C45";
+        ctx.font = `700 34px ${FONT_H}`;
+        ctx.fillText("《瓦磘溝探索之旅》榮譽認證", w / 2, 108);
 
-        ctx.fillStyle = "#004d40";
-        ctx.font = "bold 20px 'Noto Sans TC', sans-serif";
-        ctx.fillText("RIVER GUARDIAN CERTIFICATE", w / 2, 118);
+        ctx.fillStyle = "#0D9488";
+        ctx.font = `600 18px ${FONT_H}`;
+        ctx.fillText("RIVER GUARDIAN CERTIFICATE ｜ 志同道河", w / 2, 136);
 
-        // 授予文字
-        ctx.fillStyle = "#37474f";
-        ctx.font = "20px 'Noto Sans TC', sans-serif";
-        ctx.fillText("茲證明優秀學童", w / 2, 170);
-
-        // 玩家姓名
-        ctx.fillStyle = "#d84315";
-        ctx.font = "bold 38px 'Noto Sans TC', sans-serif";
-        ctx.fillText(name, w / 2, 220);
-
-        // 底線裝飾
-        ctx.strokeStyle = "#d84315";
+        // 分隔線
+        ctx.strokeStyle = "#A7F3D0";
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.moveTo(w / 2 - 150, 235);
-        ctx.lineTo(w / 2 + 150, 235);
+        ctx.moveTo(100, 148);
+        ctx.lineTo(w - 100, 148);
+        ctx.stroke();
+
+        // 授予文字
+        ctx.fillStyle = "#475569";
+        ctx.font = `600 18px ${FONT_B}`;
+        ctx.fillText("茲證明優秀學童", w / 2, 185);
+
+        // 玩家姓名（金色強調）
+        ctx.fillStyle = "#D97706";
+        ctx.font = `700 42px ${FONT_H}`;
+        ctx.fillText(name, w / 2, 236);
+
+        // 金色底線
+        ctx.strokeStyle = "#F59E0B";
+        ctx.lineWidth = 5;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(w / 2 - 170, 250);
+        ctx.lineTo(w / 2 + 170, 250);
+        ctx.stroke();
+
+        // 分隔線
+        ctx.strokeStyle = "#A7F3D0";
+        ctx.lineWidth = 2;
+        ctx.lineCap = "square";
+        ctx.beginPath();
+        ctx.moveTo(100, 268);
+        ctx.lineTo(w - 100, 268);
         ctx.stroke();
 
         // 獎狀說明內文
-        ctx.fillStyle = "#455a64";
-        ctx.font = "17px 'Noto Sans TC', sans-serif";
-        ctx.fillText("成功完成瓦磘溝全章節探索，找回失落的三枚河川記憶碎片：", w / 2, 275);
-        ctx.fillText("【歷史之石】地方記憶  •  【生態之葉】動植物棲地  •  【守護之水】無污染行動", w / 2, 305);
-        ctx.fillText("並許下守護河川的誠摯承諾，特此頒發本證書以資表揚！", w / 2, 335);
+        ctx.fillStyle = "#334155";
+        ctx.font = `600 16px ${FONT_B}`;
+        ctx.fillText("成功完成瓦磘溝全章節探索，找回失落的三枚河川記憶碎片：", w / 2, 295);
+        ctx.fillText("【歷史之石】地方記憶  •  【生態之葉】動植物棲地  •  【守護之水】無污染行動", w / 2, 318);
 
-        // 三枚勳章標記
-        ctx.font = "30px sans-serif";
-        ctx.fillText("🪨     🍃     💧", w / 2, 390);
+        ctx.fillStyle = "#0F4C45";
+        ctx.font = `700 15px ${FONT_B}`;
+        ctx.fillText("並許下守護河川的誠摯承諾，特此頒發本證書以資表揚！", w / 2, 342);
 
-        // 頒發單位與印信
+        // 三枚勳章 emoji
+        ctx.font = "32px sans-serif";
+        ctx.fillText("🪨       🍃       💧", w / 2, 395);
+
+        // 底部橫線
+        ctx.fillStyle = "#0D9488";
+        ctx.fillRect(60, 418, w - 120, 5);
+        ctx.fillStyle = "#A7F3D0";
+        ctx.fillRect(80, 426, w - 160, 2);
+
+        // 頒發單位
         ctx.textAlign = "left";
-        ctx.font = "16px 'Noto Sans TC', sans-serif";
-        ctx.fillStyle = "#546e7a";
-        ctx.fillText(`認證日期：${dateStr}`, 60, 485);
-        ctx.fillText("守護夥伴：河爺爺、小水滴、小白鷺、泥土守護精靈", 60, 510);
+        ctx.font = `400 14px ${FONT_B}`;
+        ctx.fillStyle = "#64748B";
+        ctx.fillText(`認證日期：${dateStr}`, 65, 465);
+        ctx.fillText("守護夥伴：河爺爺・小水滴・小白鷺・泥土守護精靈", 65, 484);
 
         ctx.textAlign = "right";
-        ctx.fillStyle = "#00796b";
-        ctx.font = "bold 18px 'Noto Sans TC', sans-serif";
-        ctx.fillText("志同道河 River Adventure Project", w - 60, 485);
-        ctx.font = "14px 'Noto Sans TC', sans-serif";
-        ctx.fillText("瓦磘溝環境守護教育推廣小組 敬頒", w - 60, 510);
+        ctx.fillStyle = "#0D9488";
+        ctx.font = `700 16px ${FONT_H}`;
+        ctx.fillText("志同道河 River Adventure Project", w - 65, 465);
+        ctx.font = `400 13px ${FONT_B}`;
+        ctx.fillStyle = "#64748B";
+        ctx.fillText("瓦磘溝環境守護教育推廣小組 敬頒", w - 65, 484);
+
+        // 像素風印信（右下角）
+        const sx = w - 130, sy = 496;
+        const sc = ["#0D9488", "#2DD4BF", "#A7F3D0"];
+        [[0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [0, 2], [1, 2], [2, 2]].forEach(([r, c]) => {
+            ctx.fillStyle = sc[(r + c) % 3];
+            ctx.fillRect(sx + c * 10, sy + r * 10, 8, 8);
+        });
     }
 
     // 章節快速選單視窗
