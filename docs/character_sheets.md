@@ -11,8 +11,9 @@
 2. [角色 2：小水滴（Water Drop）](#角色-2小水滴water-drop)
 3. [角色 3：河爺爺（River Grandpa）](#角色-3河爺爺river-grandpa)
 4. [角色 4：小白鷺（Little Egret）](#角色-4小白鷺little-egret)
-5. [角色 5：醜泥怪 ➔ 泥土精靈（Mud Monster & Cleaned Mud Sprite）](#角色-5醜泥怪--泥土精靈mud-monster--cleaned-mud-sprite)
-6. [Midjourney v6 角色設定圖（Character Sheet）生成提示詞專區](#ai-生圖-midjourney-v6-prompt-指南)
+5. [角色 5：醜泥怪（The Mud Monster - 前期型態）](#角色-5醜泥怪the-mud-monster---前期型態)
+6. [角色 6：泥土精靈（Cleaned Mud Sprite - 終章淨化型態）](#角色-6泥土精靈cleaned-mud-sprite---終章淨化型態)
+7. [Midjourney v6 角色設定圖（Character Sheet）生成提示詞專區](#ai-生圖-midjourney-v6-prompt-指南)
 
 ---
 
@@ -137,36 +138,63 @@
 
 ---
 
-## 角色 5：醜泥怪 ➔ 泥土精靈（Mud Monster & Cleaned Mud Sprite）
+## 角色 5：醜泥怪（The Mud Monster - 前期型態）
 
-### 一、 形態一：醜泥怪（The Mud Monster - 前期型態）
-* **身分定位**：生活廢棄物與黑臭底泥凝聚的怪物、主要衝突對象
-* **性格特質**：調皮頑劣、貪吃垃圾、虛張聲勢、內心孤單渴望被接納。
+### 一、 基本檔案
+* **中文姓名**：醜泥怪
+* **英文代號**：The Mud Monster
+* **身分定位**：生活廢棄物、廢油水與黑臭底泥凝聚的河川怪獸、遊戲主要衝突對象
+* **性格特質**：調皮頑劣、貪吃垃圾、愛惡作劇、外強中乾、內心孤單渴望被理解。
 * **口頭禪**：*「嘿嘿！你們丟下的東西，都是我的力量！」*
 * **色彩規範**：
-  * **泥體主色**：深泥棕 `#3E2723`、黑泥褐 `#5D4037`
-  * **污水氣泡**：沼氣紫棕 `#795548`
-  * **垃圾零件**：手搖塑膠藍 `#80DEEA`、爛包裝黃 `#FFF59D`
-* **視覺特徵**：
-  * 體型約 3.5 ～ 4 頭身，黏稠流體不定形怪獸，隨吞吃垃圾可自由膨大。
-  * 身上各處鑲嵌著人類隨意拋棄的垃圾（飲料塑膠杯、破吸管、油污包裝袋）。
-  * 凸起的大白眼球，滿口泥漿黑牙，頭頂不斷咕嚕冒出惡臭氣泡。
+  * **泥體主色**：深污泥棕 `#3E2723`、黑泥褐 `#2D231E`、潮濕暗泥 `#5D4037`
+  * **沼氣氣泡**：惡臭紫棕 `#795548`、沉積濁綠 `#4E342E`
+  * **垃圾鎧甲**：手搖塑膠透藍 `#80DEEA`、油膩包裝濁黃 `#FFF59D`、廢油反光彩虹膜
+
+### 二、 外觀視覺規格（Visual Specs）
+* **身型比例**：約 3.5 ～ 4 頭身，黏稠半流體怪獸造型，體積可隨吞食垃圾自由膨脹變大。
+* **面部與身體特徵**：
+  * 兩顆凸起的白色大眼球，眼珠黑白分明但佈滿調皮血絲。
+  * 咧開的泥漿大嘴，滿嘴黑泥黏液與調皮怪笑。
+  * 頭頂咕嚕咕嚕冒著深色沼氣臭泡泡。
+* **垃圾鎧甲拆解**：
+  1. 身上各處卡著壓扁的飲料保特瓶與插著吸管的塑膠手搖杯。
+  2. 纏繞在肩膀與手臂上的破損塑膠袋與油膩食物包裝盒。
+  3. 腹部與後背帶有黏膩深色的廢機油泥塊。
+* **動作與姿態矩陣**：
+  * *得意大笑（Gloating）*：雙手插腰，身體向後微仰，嘴巴大張噴出泡泡。
+  * *吞吃垃圾（Devouring）*：抓起塑膠瓶往嘴裡塞，體積瞬間劇烈膨脹。
+  * *失落沮喪（Weakened）*：垃圾被清理後，身體流下黑泥淚水，神情委屈孤單。
 
 ---
 
-### 二、 形態二：泥土精靈（Cleaned Mud Sprite - 終章淨化型態）
+## 角色 6：泥土精靈（Cleaned Mud Sprite - 終章淨化型態）
+
+### 一、 基本檔案
+* **中文姓名**：泥土精靈（小泥寶）
+* **英文代號**：Cleaned Mud Sprite (Muddy)
 * **身分定位**：洗淨污泥後轉化的瓦磘溝「河川巡邏提醒員」
-* **性格特質**：溫厚害羞、熱心誠懇、負責認真、以維護河川清潔為榮。
+* **性格特質**：溫厚害羞、熱心誠懇、善良負責、熱愛大自然、以守護河川為榮。
 * **口頭禪**：*「我以後不想再吃垃圾了，我會提醒大家收好水壺和垃圾！」*
 * **色彩規範**：
-  * **乾淨泥身**：溫潤陶土淺棕 `#8D6E63`
-  * **頭頂嫩苗**：翠葉綠 `#4CAF50`、黃綠新芽 `#81C784`
-  * **腮紅與微笑**：珊瑚粉 `#FFAB91`
-  * **純淨背景**：嫩芽淺青 `#F1F8E9`
-* **視覺特徵**：
-  * 體積縮小為約 2 頭身，圓滾滾的小陶偶外觀，外表平滑溫暖。
-  * 垃圾外殼全部脫落，頭頂中央萌發出兩片鮮綠欲滴的雙子葉幼苗。
-  * 純淨的大黑眼睛，臉頰泛起微紅，胸前繫著一條綠色巡守緞帶，神情活潑可愛。
+  * **乾淨泥身**：溫潤陶土淺棕 `#8D6E63`、烤陶淺米褐 `#A1887F`
+  * **頭頂嫩苗**：鮮嫩翠綠 `#4CAF50`、黃綠新芽 `#81C784`
+  * **害羞腮紅**：珊瑚粉橘 `#FFAB91`
+  * **巡邏綬帶**：守護青綠 `#00897B`、明黃星章 `#FDD835`
+
+### 二、 外觀視覺規格（Visual Specs）
+* **身型比例**：約 2 頭身，圓滾滾的小陶偶/黏土包子造型，身軀柔軟平滑，散發天然濕潤泥土芳香。
+* **面部與身體特徵**：
+  * 兩顆水靈靈的烏黑大眼睛，透著無辜與純真光芒。
+  * 兩頰有溫暖甜美的珊瑚粉紅腮紅，嘴角掛著靦腆開心的微笑。
+  * **新生象徵**：頭頂正中央萌發出兩片鮮嫩欲滴的翠綠色「雙子葉幼苗」，情緒高興時會像小耳朵一樣輕輕晃動。
+* **守護裝備拆解**：
+  1. 斜背一條亮綠色的「瓦磘溝巡邏隊」迷你綬帶。
+  2. 手持一塊用河畔漂流木製作的小巧提示木牌（上面刻著「垃圾帶走 河川常綠」）。
+* **動作與姿態矩陣**：
+  * *害羞致謝（Grateful）*：雙手捧在胸前，眼睛瞇成笑月牙，頭頂綠苗輕輕搖動。
+  * *巡邏站崗（Patrolling）*：抬頭挺胸站立在水邊石頭上，手持提示木牌。
+  * *跳躍慶祝（Celebrating）*：雙手高舉歡呼跳躍，腳下泛起純淨的泥土小清香。
 
 ---
 
@@ -194,8 +222,13 @@
 /imagine prompt: character model sheet of a cute stylized little egret bird, anthropomorphic nature scout character, storybook illustration, Ghibli watercolor style. Fluffy pure white plumage, elegant S-curved slender neck, two thin playful decorative crest feathers on head that bounce like antennas, sharp bright yellow beak, long thin black legs with distinct bright yellow feet. Carrying a miniature woven canteen pouch. Expressions and poses: front view standing on wooden post, side profile stepping into shallow creek, surprised wings-open flap pose with erect crest feathers, curious bird head-tilt pose. Solid white background, full body turnaround, clean reference sheet --ar 16:9 --v 6.0
 ```
 
-### 5. 醜泥怪與泥土精靈雙重形態（Mud Monster to Sprite - Prompt）
+### 5. 醜泥怪（The Mud Monster - Character Sheet Prompt）
 ```text
-/imagine prompt: character design concept sheet showing transformation of a river pollution monster into a cute earth spirit, children's picture book style. Left side: bulky comical Mud Monster made of gooey dark brown river mud, covered in stuck plastic water bottles, crumpled snack bags, and oily sheen, mischievous funny eyes, bubbling purple swamp gas. Right side: cleaned purified cute Earth Sprite, small round smooth clay body, shiny happy innocent black eyes, blushing cheeks, two fresh green plant sprouts growing from top of head, wearing a little green ranger sash. Multiple transformation stages, front and 3/4 view, clean white background, vibrant colors, Ghibli inspired, high detail --ar 16:9 --v 6.0
+/imagine prompt: character sheet of a comical river pollution monster named Mud Monster, children's adventure storybook style, Studio Ghibli aesthetic. Bulky fluid amorphous body made of dark brown river mud and oily sludge, with various plastic waste items stuck on its surface: crumpled plastic water bottles, plastic cups with straws, tangled plastic bags, and greasy snack wrappers. Big cartoonish googly eyes with slight mischievous red veins, wide grinning mouth showing goofy mud teeth, burping stinky purple-brown swamp gas bubbles from its head. Includes multiple poses and expressions: front view, side profile, back view, laughing proudly with hands on hips, devouring plastic trash pose, and sulking sad melting pose. Clean solid white background, turnaround reference sheet, watercolor children's book style, vibrant colors, high detail, 8k --ar 16:9 --v 6.0
+```
+
+### 6. 泥土精靈（Cleaned Mud Sprite - Character Sheet Prompt）
+```text
+/imagine prompt: character sheet of an adorable purified earth clay sprite mascot named Muddy, children's picture book style, Studio Ghibli inspired. A cute, round, smooth reddish-brown clay dumpling creature, shining innocent large black eyes, sweet blushing coral cheeks, friendly warm smile. Two fresh bright green plant seedling sprouts growing cheerfully from the top of its head. Wearing a miniature dark emerald-green river ranger sash across its torso. Includes multiple poses and expressions: front view, side profile, back view, shy happy bow with hands together, holding a tiny wooden sign saying reminder, jumping joyfully with arms up, and waving hello. Clean solid white background, full body turnaround, soft 3D claymation texture, warm earthy watercolor tones, high resolution, 8k --ar 16:9 --v 6.0
 ```
 
