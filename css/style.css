@@ -123,114 +123,253 @@ h1, h2, h3, h4, h5 {
     background: var(--clr-primary-dark);
 }
 
+/* 輔助無障礙視覺隱藏 */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 /* ==========================================
-   四、開始封面螢幕（Claymorphism 卡片風格）
+   四、開始封面螢幕（全屏底圖原畫 + 關鍵按鈕懸浮列）
    ========================================== */
 .start-screen {
     position: absolute;
     inset: 0;
     z-index: 100;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    padding: 16px;
-    overflow-y: auto;
-    /* 河川主題漸層背景 */
-    background: radial-gradient(ellipse at top left, #0D9488 0%, #0F4C45 40%, #052e2a 100%);
+    padding: clamp(14px, 3vh, 28px) clamp(16px, 4vw, 36px);
+    overflow: hidden;
+    background: #092c28;
 }
 
+/* 全屏主視覺插畫底圖 */
 .cover-bg-image {
     position: absolute;
     inset: 0;
-    background-image: url('../assets/images/cover.png');
+    /* 優先載入原畫「瓦磘溝探索之旅 (1).png」，並相容 assets 目錄 */
+    background-image: url('../瓦磘溝探索之旅 (1).png'), url('../assets/images/cover.png');
     background-size: cover;
-    background-position: center top;
-    filter: brightness(0.75) saturate(1.1);
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    /* 保留原畫清澈明亮的繪本色彩，不主動暗化 */
+    filter: saturate(1.05) contrast(1.02);
+    transform: scale(1.01);
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+/* 針對寬螢幕（桌面橫屏）優化原畫居中與小男孩視野 */
+@media (min-aspect-ratio: 16/10) {
+    .cover-bg-image {
+        background-size: contain;
+        background-position: center center;
+        background-color: #0b3832;
+    }
+}
+
+/* 柔和輕量漸層：僅強化底部按鈕與頂部工具圖示的可讀性，不遮擋原畫主要景色 */
 .cover-overlay {
     position: absolute;
     inset: 0;
+    pointer-events: none;
     background: linear-gradient(
         180deg,
-        rgba(0, 50, 40, 0.3) 0%,
-        rgba(0, 60, 48, 0.55) 50%,
-        rgba(0, 30, 24, 0.95) 100%
+        rgba(0, 30, 25, 0.22) 0%,
+        rgba(0, 0, 0, 0) 25%,
+        rgba(0, 0, 0, 0) 65%,
+        rgba(5, 30, 26, 0.45) 85%,
+        rgba(3, 20, 18, 0.75) 100%
     );
 }
 
-/* Claymorphism 主卡片 */
-.cover-content {
+/* 頂部快速工具列（右上角快捷） */
+.cover-top-bar {
     position: relative;
-    z-index: 10;
-    text-align: center;
+    z-index: 20;
     width: 100%;
-    max-width: 680px;
-    padding: clamp(1.5rem, 4vw, 2.8rem) clamp(1.2rem, 3.5vw, 2.5rem);
-    background: var(--clay-bg-white);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    pointer-events: none;
+}
+
+.btn-cover-icon {
+    pointer-events: auto;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    font-size: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.34, 1.56);
+}
+
+.btn-cover-icon:hover {
+    transform: scale(1.1);
+    background: #ffffff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+}
+
+.btn-cover-icon:active {
+    transform: scale(0.95);
+}
+
+/* 底部核心操作導覽列（只保留關鍵按鈕） */
+.start-action-bar {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(10px, 2vw, 18px);
+    flex-wrap: wrap;
+    margin-bottom: clamp(12px, 3vh, 30px);
+    padding: clamp(8px, 1.5vh, 12px) clamp(14px, 3vw, 24px);
+    background: rgba(10, 48, 43, 0.55);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-radius: var(--clay-radius-lg);
-    border: var(--clay-border) var(--clay-border-color);
-    box-shadow: var(--clay-shadow);
-    margin: auto;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 60px;
+    box-shadow:
+        0 12px 36px rgba(0, 0, 0, 0.35),
+        inset 0 1px 2px rgba(255, 255, 255, 0.45);
+    max-width: 95vw;
 }
 
-.project-tag {
-    display: inline-block;
+/* 核心英雄主按鈕：開始探索旅程（具備水波呼吸微光） */
+.btn-start-hero {
     font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 0.88rem;
-    letter-spacing: 0.5px;
-    color: var(--clr-primary);
-    background: var(--clr-primary-light);
-    padding: 5px 16px;
-    border-radius: 30px;
-    border: 2px solid #A7F3D0;
-    margin-bottom: 0.9rem;
-    box-shadow: var(--clay-shadow-sm);
-}
-
-.game-main-title {
-    font-family: var(--font-heading);
-    font-size: clamp(2.1rem, 5.5vw, 3.4rem);
     font-weight: 700;
-    color: var(--clr-primary-mid);
-    letter-spacing: 0.5px;
-    margin-bottom: 0.2rem;
-    /* 像素風格文字陰影點綴 */
-    text-shadow:
-        3px 3px 0 rgba(13, 148, 136, 0.18),
-        0 2px 8px rgba(13, 148, 136, 0.12);
-}
-
-.game-sub-title {
-    font-family: var(--font-heading);
-    font-size: clamp(1.1rem, 2.8vw, 1.4rem);
-    font-weight: 600;
-    color: var(--clr-water);
-    margin-bottom: 1rem;
-}
-
-.game-intro-text {
-    font-size: clamp(0.9rem, 2.2vw, 1rem);
-    color: var(--clr-text-muted);
-    margin-bottom: 1.8rem;
-    line-height: 1.7;
-}
-
-.start-button-group {
-    display: flex;
-    gap: 0.75rem;
+    font-size: clamp(1.05rem, 2.4vw, 1.25rem) !important;
+    padding: 13px 32px !important;
+    min-height: 52px;
+    border-radius: 50px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #0d9488 0%, #059669 50%, #047857 100%) !important;
+    border: 3px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow:
+        0 6px 0 #064e3b,
+        0 8px 24px rgba(13, 148, 136, 0.45),
+        inset 0 2px 4px rgba(255, 255, 255, 0.6) !important;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 1.2rem;
+    gap: 8px;
+    transition: all 0.18s ease-out;
+    animation: heroPulseGlow 3s infinite ease-in-out;
 }
 
-.cover-footer-note {
-    font-size: 0.8rem;
-    color: #94A3B8;
-    line-height: 1.5;
+@keyframes heroPulseGlow {
+    0%, 100% {
+        box-shadow:
+            0 6px 0 #064e3b,
+            0 8px 20px rgba(13, 148, 136, 0.4),
+            inset 0 2px 4px rgba(255, 255, 255, 0.6);
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        box-shadow:
+            0 6px 0 #064e3b,
+            0 14px 32px rgba(45, 212, 191, 0.65),
+            inset 0 2px 6px rgba(255, 255, 255, 0.9);
+        transform: translateY(-2px) scale(1.03);
+    }
+}
+
+.btn-start-hero:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow:
+        0 8px 0 #064e3b,
+        0 16px 36px rgba(45, 212, 191, 0.7),
+        inset 0 2px 6px rgba(255, 255, 255, 0.9) !important;
+}
+
+.btn-start-hero:active {
+    transform: translateY(3px) scale(0.98);
+    box-shadow:
+        0 2px 0 #064e3b,
+        0 4px 12px rgba(13, 148, 136, 0.3),
+        inset 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 次要輔助按鈕：章節選擇、故事導讀（半透明毛玻璃質感） */
+.btn-start-sub {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(0.92rem, 2vw, 1.05rem) !important;
+    padding: 11px 22px !important;
+    min-height: 48px;
+    border-radius: 50px;
+    color: #0d5f57 !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    border: 2px solid rgba(255, 255, 255, 0.98) !important;
+    box-shadow:
+        0 4px 0 #99f6e4,
+        0 6px 16px rgba(0, 0, 0, 0.16),
+        inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.18s ease-out;
+}
+
+.btn-start-sub:hover {
+    background: #ffffff !important;
+    color: #064e3b !important;
+    transform: translateY(-2px);
+    box-shadow:
+        0 6px 0 #99f6e4,
+        0 10px 22px rgba(0, 0, 0, 0.22),
+        inset 0 1px 3px rgba(255, 255, 255, 1) !important;
+}
+
+.btn-start-sub:active {
+    transform: translateY(2px);
+    box-shadow:
+        0 2px 0 #99f6e4,
+        0 4px 8px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* 按鈕文字與圖示間距 */
+.btn-start-hero .btn-icon,
+.btn-start-sub .btn-icon {
+    font-size: 1.15em;
+    line-height: 1;
+}
+
+/* 行動版極小螢幕優化 */
+@media (max-width: 480px) {
+    .start-action-bar {
+        border-radius: 28px;
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+        gap: 8px;
+        padding: 12px;
+    }
+    .btn-start-hero,
+    .btn-start-sub {
+        width: 100%;
+    }
 }
 
 /* ==========================================

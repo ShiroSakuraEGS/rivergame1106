@@ -19,16 +19,43 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 行動裝置音訊解鎖保險：使用者於頁面任意處首次觸碰/點擊時喚醒 AudioContext
+    // 行動裝置與瀏覽器音訊解鎖：使用者於頁面任意處首次觸碰/點擊時喚醒 AudioContext 並啟動首頁背景音樂
     const unlockAudio = () => {
         if (typeof audioMgr !== "undefined" && audioMgr) {
             audioMgr.initContext();
+            // 若尚未播放背景音樂且未靜音，啟動首頁音樂
+            if (!audioMgr.isMuted && (!audioMgr.currentAudio || audioMgr.currentAudio.paused)) {
+                audioMgr.playBGM("cover");
+            }
         }
         window.removeEventListener("touchstart", unlockAudio);
         window.removeEventListener("pointerdown", unlockAudio);
     };
     window.addEventListener("touchstart", unlockAudio, { passive: true });
     window.addEventListener("pointerdown", unlockAudio, { passive: true });
+
+    // 嘗試在載入時播放封面音樂（若瀏覽器允許）
+    if (typeof audioMgr !== "undefined" && audioMgr && !audioMgr.isMuted) {
+        audioMgr.playBGM("cover");
+    }
+
+    // 初始化按鈕音訊狀態
+    if (game && typeof game.updateMuteButton === "function") {
+        game.updateMuteButton(audioMgr.isMuted);
+    }
+
+    // 封面快速音樂開關按鈕
+    const btnStartMute = document.getElementById("btn-start-mute");
+    if (btnStartMute) {
+        btnStartMute.addEventListener("click", () => {
+            if (typeof audioMgr !== "undefined" && audioMgr) {
+                const isMuted = audioMgr.toggleMute();
+                if (game && typeof game.updateMuteButton === "function") {
+                    game.updateMuteButton(isMuted);
+                }
+            }
+        });
+    }
 
     // 綁定封面開始探索按鈕
     const btnStart = document.getElementById("btn-start-game");

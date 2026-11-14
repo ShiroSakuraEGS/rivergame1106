@@ -36,28 +36,37 @@
     <div id="game-app">
         <!-- ==========================================
              一、開始封面螢幕（Start Screen）
+             底圖直接展示《瓦磘溝探索之旅 (1).png》，畫面上僅保留關鍵按鈕
              ========================================== -->
-        <section id="start-screen" class="start-screen">
-            <div class="cover-bg-image"></div>
+        <section id="start-screen" class="start-screen" aria-label="遊戲首頁封面">
+            <!-- 全屏插畫底圖 -->
+            <div class="cover-bg-image" role="img" aria-label="瓦磘溝探索之旅主視覺插畫"></div>
+            <!-- 柔和環境漸層遮罩（僅增強底部按鈕對比，不遮蔽原畫） -->
             <div class="cover-overlay"></div>
-            <div class="cover-content fade-in">
-                <div class="project-tag">志同道河 River Adventure Project</div>
-                <h1 class="game-main-title">瓦磘溝探索之旅</h1>
-                <h2 class="game-sub-title">消失的河川記憶</h2>
-                <p class="game-intro-text">
-                    在中和與永和之間，有一條承載著百年水路記憶的河川——瓦磘溝。<br>
-                    如今，神祕的「記憶之流」正在消失，由生活污染物凝聚的「醜泥怪」也悄悄現身……<br>
-                    和小水滴、河爺爺、小白鷺一起找回失落的三枚記憶碎片吧！
-                </p>
-                <div class="start-button-group">
-                    <button id="btn-start-game" class="btn-primary btn-large">🌊 開始探索旅程</button>
-                    <button id="btn-start-chapters" class="btn-secondary">🗺️ 章節選擇</button>
-                    <button id="btn-guide" class="btn-secondary">📖 故事導讀手冊</button>
-                </div>
-                <div class="cover-footer-note">
-                    建議遊玩時間：20–25 分鐘 ｜ 適合年級：國小三至六年級 ｜ 支援平板與電腦瀏覽
-                </div>
-            </div>
+
+            <!-- 無障礙螢幕閱讀器友善標題（視覺隱藏） -->
+            <h1 class="sr-only">瓦磘溝探索之旅：消失的河川記憶</h1>
+
+            <!-- 頂部快速工具列（右上角音樂開關按鈕） -->
+            <header class="cover-top-bar">
+                <button id="btn-start-mute" class="btn-cover-icon" title="音樂播放中（點擊關閉）" aria-label="切換音樂">🎵</button>
+            </header>
+
+            <!-- 底部核心操作按鈕群組（關鍵幾個按鈕） -->
+            <nav class="start-action-bar fade-in" aria-label="主要遊戲導覽">
+                <button id="btn-start-game" class="btn-primary btn-start-hero" aria-label="開始探索旅程">
+                    <span class="btn-icon">🌊</span>
+                    <span class="btn-text">開始探索旅程</span>
+                </button>
+                <button id="btn-start-chapters" class="btn-secondary btn-start-sub" aria-label="章節選擇">
+                    <span class="btn-icon">🗺️</span>
+                    <span class="btn-text">章節選擇</span>
+                </button>
+                <button id="btn-guide" class="btn-secondary btn-start-sub" aria-label="故事導讀手冊">
+                    <span class="btn-icon">📖</span>
+                    <span class="btn-text">故事導讀</span>
+                </button>
+            </nav>
         </section>
 
         <!-- ==========================================
@@ -85,7 +94,7 @@
 
                 <div class="hud-right">
                     <button id="btn-chapters" class="btn-hud-tool" title="章節導覽">🗺️ 章節</button>
-                    <button id="btn-mute" class="btn-hud-tool" title="切換音效">🔊 音效</button>
+                    <button id="btn-mute" class="btn-hud-tool" title="切換音樂">🎵 音樂</button>
                     <button id="btn-restart" class="btn-hud-tool" title="重新開始">🔄 重設</button>
                 </div>
             </header>

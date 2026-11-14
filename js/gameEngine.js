@@ -187,15 +187,22 @@ class GameEngine {
     // 更新靜音按鈕外觀
     updateMuteButton(isMuted) {
         if (this.dom.btnMute) {
-            this.dom.btnMute.innerHTML = isMuted ? "🔇 靜音" : "🔊 音效";
+            this.dom.btnMute.innerHTML = isMuted ? "🔇 靜音" : "🎵 音樂";
             this.dom.btnMute.classList.toggle("btn-muted", isMuted);
+            this.dom.btnMute.title = isMuted ? "音樂已關閉（點擊開啟）" : "音樂播放中（點擊關閉）";
+        }
+        const btnStartMute = document.getElementById("btn-start-mute");
+        if (btnStartMute) {
+            btnStartMute.textContent = isMuted ? "🔇" : "🎵";
+            btnStartMute.title = isMuted ? "音樂已關閉（點擊開啟）" : "音樂播放中（點擊關閉）";
         }
     }
 
     // 開始遊戲（從封面點擊「開始探索」）
     startGame() {
         audioMgr.playWaterDrop();
-        audioMgr.startAmbient();
+        // 進入序章時播放對應背景音樂
+        audioMgr.playBGMForChapter("ch0");
 
         if (this.dom.startScreen) {
             this.dom.startScreen.classList.add("fade-out");
@@ -213,6 +220,11 @@ class GameEngine {
         this.currentChapterIndex = Math.min(Math.max(0, chapIndex), this.story.chapters.length - 1);
         this.currentSceneIndex = sceneIndex;
         const chapter = this.story.chapters[this.currentChapterIndex];
+
+        // 依章節自動切換並循環播放對應的背景音樂
+        if (typeof audioMgr !== "undefined" && audioMgr) {
+            audioMgr.playBGMForChapter(chapter.id);
+        }
 
         // 更新背景樣式
         if (this.dom.stageBackground) {
