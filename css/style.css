@@ -230,123 +230,123 @@ h1, h2, h3, h4, h5 {
     transform: scale(0.95);
 }
 
-/* 底部核心操作導覽列（只保留關鍵按鈕） */
+/* 底部核心操作導覽列（極致簡約單行懸浮膠囊島） */
 .start-action-bar {
     position: relative;
     z-index: 20;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(10px, 2vw, 18px);
-    flex-wrap: wrap;
-    margin-bottom: clamp(12px, 3vh, 30px);
-    padding: clamp(8px, 1.5vh, 12px) clamp(14px, 3vw, 24px);
-    background: rgba(10, 48, 43, 0.55);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    border-radius: 60px;
-    box-shadow:
-        0 12px 36px rgba(0, 0, 0, 0.35),
-        inset 0 1px 2px rgba(255, 255, 255, 0.45);
-    max-width: 95vw;
-}
-
-/* 核心英雄主按鈕：開始探索旅程（具備水波呼吸微光） */
-.btn-start-hero {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: clamp(1.05rem, 2.4vw, 1.25rem) !important;
-    padding: 13px 32px !important;
-    min-height: 52px;
-    border-radius: 50px;
-    color: #ffffff;
-    background: linear-gradient(135deg, #0d9488 0%, #059669 50%, #047857 100%) !important;
-    border: 3px solid rgba(255, 255, 255, 0.85) !important;
-    box-shadow:
-        0 6px 0 #064e3b,
-        0 8px 24px rgba(13, 148, 136, 0.45),
-        inset 0 2px 4px rgba(255, 255, 255, 0.6) !important;
-    cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    transition: all 0.18s ease-out;
-    animation: heroPulseGlow 3s infinite ease-in-out;
-}
-
-@keyframes heroPulseGlow {
-    0%, 100% {
-        box-shadow:
-            0 6px 0 #064e3b,
-            0 8px 20px rgba(13, 148, 136, 0.4),
-            inset 0 2px 4px rgba(255, 255, 255, 0.6);
-        transform: translateY(0) scale(1);
-    }
-    50% {
-        box-shadow:
-            0 6px 0 #064e3b,
-            0 14px 32px rgba(45, 212, 191, 0.65),
-            inset 0 2px 6px rgba(255, 255, 255, 0.9);
-        transform: translateY(-2px) scale(1.03);
-    }
-}
-
-.btn-start-hero:hover {
-    transform: translateY(-3px) scale(1.04);
-    box-shadow:
-        0 8px 0 #064e3b,
-        0 16px 36px rgba(45, 212, 191, 0.7),
-        inset 0 2px 6px rgba(255, 255, 255, 0.9) !important;
-}
-
-.btn-start-hero:active {
-    transform: translateY(3px) scale(0.98);
-    box-shadow:
-        0 2px 0 #064e3b,
-        0 4px 12px rgba(13, 148, 136, 0.3),
-        inset 0 1px 3px rgba(0, 0, 0, 0.3) !important;
-}
-
-/* 次要輔助按鈕：章節選擇、故事導讀（半透明毛玻璃質感） */
-.btn-start-sub {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: clamp(0.92rem, 2vw, 1.05rem) !important;
-    padding: 11px 22px !important;
-    min-height: 48px;
+    margin-bottom: clamp(14px, 3.5vh, 28px);
+    padding: 6px 10px;
+    background: rgba(8, 38, 34, 0.42);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
     border-radius: 50px;
-    color: #0d5f57 !important;
-    background: rgba(255, 255, 255, 0.92) !important;
-    border: 2px solid rgba(255, 255, 255, 0.98) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+    max-width: 92vw;
+    white-space: nowrap;
+}
+
+/* 核心英雄主按鈕：開始探索（具備水波呼吸微光） */
+.btn-start-hero {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(0.95rem, 2.2vw, 1.15rem) !important;
+    padding: 10px 24px !important;
+    min-height: 44px;
+    border-radius: 40px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #0d9488 0%, #059669 60%, #047857 100%) !important;
+    border: 2px solid rgba(255, 255, 255, 0.85) !important;
     box-shadow:
-        0 4px 0 #99f6e4,
-        0 6px 16px rgba(0, 0, 0, 0.16),
-        inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+        0 4px 0 #064e3b,
+        0 6px 18px rgba(13, 148, 136, 0.4),
+        inset 0 1px 3px rgba(255, 255, 255, 0.6) !important;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
     transition: all 0.18s ease-out;
+    animation: heroPulseGlow 3s infinite ease-in-out;
+    white-space: nowrap;
+}
+
+@keyframes heroPulseGlow {
+    0%, 100% {
+        box-shadow:
+            0 4px 0 #064e3b,
+            0 6px 16px rgba(13, 148, 136, 0.35),
+            inset 0 1px 3px rgba(255, 255, 255, 0.6);
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        box-shadow:
+            0 4px 0 #064e3b,
+            0 12px 26px rgba(45, 212, 191, 0.6),
+            inset 0 2px 5px rgba(255, 255, 255, 0.9);
+        transform: translateY(-2px) scale(1.02);
+    }
+}
+
+.btn-start-hero:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow:
+        0 6px 0 #064e3b,
+        0 14px 28px rgba(45, 212, 191, 0.65),
+        inset 0 2px 5px rgba(255, 255, 255, 0.9) !important;
+}
+
+.btn-start-hero:active {
+    transform: translateY(2px) scale(0.98);
+    box-shadow:
+        0 2px 0 #064e3b,
+        0 3px 8px rgba(13, 148, 136, 0.3),
+        inset 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 次要輔助按鈕：章節選擇、故事導讀（半透明小圓角膠囊） */
+.btn-start-sub {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem !important;
+    padding: 8px 14px !important;
+    min-height: 44px;
+    border-radius: 40px;
+    color: #064e3b !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+    box-shadow:
+        0 3px 0 #99f6e4,
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: all 0.18s ease-out;
+    white-space: nowrap;
 }
 
 .btn-start-sub:hover {
     background: #ffffff !important;
-    color: #064e3b !important;
+    color: #047857 !important;
     transform: translateY(-2px);
     box-shadow:
-        0 6px 0 #99f6e4,
-        0 10px 22px rgba(0, 0, 0, 0.22),
-        inset 0 1px 3px rgba(255, 255, 255, 1) !important;
+        0 4px 0 #99f6e4,
+        0 8px 16px rgba(0, 0, 0, 0.2),
+        inset 0 1px 2px rgba(255, 255, 255, 1) !important;
 }
 
 .btn-start-sub:active {
     transform: translateY(2px);
     box-shadow:
-        0 2px 0 #99f6e4,
-        0 4px 8px rgba(0, 0, 0, 0.12) !important;
+        0 1px 0 #99f6e4,
+        0 2px 6px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* 按鈕文字與圖示間距 */
@@ -356,19 +356,40 @@ h1, h2, h3, h4, h5 {
     line-height: 1;
 }
 
-/* 行動版極小螢幕優化 */
-@media (max-width: 480px) {
+/* 手機版極致簡約：永不垂直堆疊，次要按鈕自動轉化為輕巧圓形圖示 */
+@media (max-width: 540px) {
     .start-action-bar {
-        border-radius: 28px;
-        flex-direction: column;
-        width: 100%;
-        max-width: 320px;
-        gap: 8px;
-        padding: 12px;
+        padding: 4px 8px;
+        gap: 6px;
+        border-radius: 40px;
+        flex-direction: row !important;
+        width: auto !important;
+        max-width: 90vw !important;
+        margin-bottom: 16px;
     }
-    .btn-start-hero,
+    
+    .btn-start-hero {
+        padding: 8px 18px !important;
+        font-size: 0.95rem !important;
+        min-height: 40px !important;
+    }
+
     .btn-start-sub {
-        width: 100%;
+        width: 40px !important;
+        height: 40px !important;
+        min-height: 40px !important;
+        min-width: 40px !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+    }
+    
+    .btn-start-sub .btn-text {
+        display: none !important;
+    }
+    
+    .btn-start-sub .btn-icon {
+        font-size: 1.15rem;
+        margin: 0;
     }
 }
 
@@ -1720,23 +1741,22 @@ h1, h2, h3, h4, h5 {
    十二、精準 RWD 響應式斷點
    ========================================== */
 
-/* 直向手機 (≤ 640px) */
+/* 直向手機 (≤ 640px) 精準極簡優化 */
 @media (max-width: 640px) {
-    .cover-content { padding: 1.5rem 1.1rem; }
-    .start-button-group { flex-direction: column; }
-    .start-button-group button { width: 100%; }
     .hud-mission, .inventory-label, .speaker-catchphrase { display: none !important; }
-    .stage-characters { gap: 0.6rem; }
-    .char-sprite-wrap { width: 65px; height: 65px; }
+    .game-hud { padding: 5px 8px; }
+    .hud-badge { font-size: 0.72rem; padding: 2px 7px; }
+    .hud-title { font-size: 0.86rem; max-width: 130px; }
+    .btn-hud-tool { padding: 4px 6px; font-size: 0.75rem; min-height: 28px; border-radius: 8px; }
+    .fragment-slot { width: 26px; height: 26px; font-size: 0.8rem; }
+
     .dialogue-speaker-avatar { width: 48px; height: 48px; }
-    .dialogue-box { padding: 8px 10px; gap: 8px; min-height: 76px; }
+    .dialogue-box { padding: 8px 10px; gap: 8px; min-height: 72px; border-radius: 16px; }
     .creature-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
     .knowledge-cards-grid { grid-template-columns: 1fr 1fr; }
     .cert-actions { flex-direction: column; }
     .cert-actions button { width: 100%; }
     .modal-container { padding: 1.2rem; }
-    .btn-hud-tool { padding: 4px 7px; font-size: 0.72rem; }
-    .fragment-slot { width: 28px; height: 28px; font-size: 0.85rem; }
 }
 
 /* 超小手機 (≤ 380px) */
