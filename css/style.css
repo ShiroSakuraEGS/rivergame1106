@@ -732,58 +732,67 @@ h1, h2, h3, h4, h5 {
         #CCFBF1 60%, #2DD4BF 80%, #0D9488 100%);
 }
 
-/* ── 角色立繪容器 ── */
+/* ==========================================
+   視覺小說模式：舞台角色立繪（手機頁面版適配）
+   ========================================== */
 .stage-characters {
-    position: relative;
-    z-index: 10;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    gap: clamp(1rem, 4vw, 3rem);
-    width: 100%;
-    max-width: 1000px;
-    padding-bottom: 10px;
+    z-index: 10;
     pointer-events: none;
+    overflow: hidden;
 }
 
-.stage-char {
+.vn-character-wrapper {
+    position: relative;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: all 0.4s cubic-bezier(0.34, 1.56);
-}
-
-.char-sprite-wrap {
-    width: clamp(78px, 15vw, 130px);
-    height: clamp(78px, 15vw, 130px);
-    display: flex;
-    align-items: center;
     justify-content: center;
-}
-
-.avatar-svg {
-    width: 100%;
+    align-items: flex-end;
     height: 100%;
-    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.3));
+    width: 100%;
+    animation: vnSpriteSlideUp 0.35s cubic-bezier(0.34, 1.56) forwards;
 }
 
-/* 角色名牌（Claymorphism + 像素底線點綴） */
-.char-name-plate {
-    margin-top: 5px;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: clamp(0.7rem, 1.8vw, 0.82rem);
-    color: var(--clr-text-main);
-    background: linear-gradient(145deg, #fff, #F0FDFA);
-    padding: 3px 10px;
-    border-radius: 12px;
-    border: 2px solid #A7F3D0;
-    box-shadow: 2px 2px 0 #A7F3D0, 0 2px 6px rgba(0,0,0,0.1);
-    white-space: nowrap;
+.vn-character-sprite {
+    height: clamp(260px, 60vh, 520px);
+    width: auto;
+    max-width: 90vw;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.42));
+    animation: vnSpriteBreathe 4s ease-in-out infinite alternate;
+    transform-origin: bottom center;
+}
+
+/* 角色呼吸浮動動畫 */
+@keyframes vnSpriteBreathe {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        transform: translateY(-8px) scale(1.02);
+    }
+}
+
+/* 角色滑入登場動畫 */
+@keyframes vnSpriteSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 /* ==========================================
-   九、遊戲控制台（對話框 + 互動區）
+   九、遊戲控制台（對話框）
    ========================================== */
 .game-console {
     position: relative;
@@ -795,35 +804,71 @@ h1, h2, h3, h4, h5 {
     padding: 0 10px 10px 10px;
     gap: 7px;
     flex-shrink: 0;
-    max-height: 65vh;
 }
 
-/* ── 互動任務面板（Claymorphism 卡片） ── */
-.interaction-area {
+/* ==========================================
+   滿屏關卡互動層（各個關卡的畫面疊在最上方滿屏）
+   ========================================== */
+.interaction-area:not(.hidden) {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 100 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    background: radial-gradient(ellipse at center, rgba(13, 76, 68, 0.95) 0%, rgba(5, 30, 26, 0.98) 100%) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: clamp(14px, 3vh, 28px) clamp(16px, 4vw, 32px) !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    animation: minigameFadeIn 0.32s cubic-bezier(0.34, 1.56) forwards !important;
+}
+
+@keyframes minigameFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.interaction-panel {
     width: 100%;
-    max-width: 900px;
+    max-width: 680px;
+    max-height: 86vh;
+    max-height: 86dvh;
+    overflow-y: auto;
     background: var(--clay-bg-white);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-radius: var(--clay-radius);
-    border: var(--clay-border) rgba(255,255,255,0.8);
-    padding: clamp(0.8rem, 2vw, 1.1rem);
-    box-shadow: var(--clay-shadow);
-    max-height: clamp(155px, 33vh, 255px);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    border-radius: var(--clay-radius-lg);
+    border: 3px solid #A7F3D0;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+    padding: clamp(1.2rem, 3.5vw, 2.2rem);
+    margin: auto;
     scrollbar-width: thin;
-    scrollbar-color: #A7F3D0 transparent;
+    scrollbar-color: #0D9488 transparent;
 }
 
-.interaction-area::-webkit-scrollbar {
-    width: 5px;
+.interaction-area::-webkit-scrollbar,
+.interaction-panel::-webkit-scrollbar {
+    width: 6px;
 }
-.interaction-area::-webkit-scrollbar-track {
+.interaction-area::-webkit-scrollbar-track,
+.interaction-panel::-webkit-scrollbar-track {
     background: transparent;
 }
-.interaction-area::-webkit-scrollbar-thumb {
-    background: #A7F3D0;
+.interaction-area::-webkit-scrollbar-thumb,
+.interaction-panel::-webkit-scrollbar-thumb {
+    background: #0D9488;
     border-radius: 10px;
 }
 
@@ -1370,6 +1415,20 @@ h1, h2, h3, h4, h5 {
 }
 
 .dialogue-speaker-avatar svg { width: 90%; height: 90%; }
+.dialogue-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+.dialogue-avatar-icon {
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .dialogue-body { flex: 1 1 auto; min-width: 0; }
 
@@ -1690,10 +1749,8 @@ h1, h2, h3, h4, h5 {
 /* 手機橫向 (max-height ≤ 500px + 橫向) */
 @media (max-height: 500px) and (orientation: landscape) {
     .game-stage { min-height: 60px; }
-    .char-sprite-wrap { width: 52px; height: 52px; }
-    .char-name-plate { display: none; }
+    .vn-character-sprite { height: clamp(200px, 75vh, 320px); }
     .game-console { padding-bottom: 4px; gap: 4px; }
-    .interaction-area { max-height: 110px; padding: 0.55rem; }
     .dialogue-box { min-height: 58px; padding: 6px 10px; }
     .dialogue-speaker-avatar { width: 40px; height: 40px; }
     .dialogue-text { font-size: 0.86rem; line-height: 1.3; }

@@ -283,62 +283,51 @@ class GameEngine {
         }
     }
 
-    // 渲染舞台角色立繪
-    renderStageCharacters(speakerId) {
-        if (!this.dom.stageCharacters) return;
-        this.dom.stageCharacters.innerHTML = "";
+    // 取得說話者對應的角色立繪素材路徑（主角不會有）
+    getCharacterAsset(speakerId) {
+        if (!speakerId || speakerId === "narrator" || speakerId === "player") {
+            return null; // 主角與旁白不顯示立繪
+        }
 
-        // 取得當前可能登場的角色
         const chapter = this.story.chapters[this.currentChapterIndex];
         const isChapter4Clean = (chapter.id === "ch4" && this.currentSceneIndex >= 2);
 
-        // 根據章節顯示常駐夥伴
-        const cast = [];
-        if (chapter.id === "ch0") {
-            cast.push("water_drop", "river_grandpa");
-            if (speakerId === "mud_monster") cast.push("mud_monster");
-        } else if (chapter.id === "ch1") {
-            cast.push("river_grandpa", "egret");
-        } else if (chapter.id === "ch2") {
-            cast.push("egret", "river_grandpa");
-            if (speakerId === "mud_monster") cast.push("mud_monster");
-        } else if (chapter.id === "ch3") {
-            cast.push("mud_monster", "river_grandpa", "egret");
-        } else if (chapter.id === "ch4") {
-            cast.push("water_drop", "river_grandpa", "egret", "mud_monster");
+        if (speakerId === "water_drop") {
+            return "character/小水滴.png";
+        } else if (speakerId === "river_grandpa") {
+            return "character/河伯伯.png";
+        } else if (speakerId === "egret") {
+            return "character/小白鷺.png";
+        } else if (speakerId === "mud_monster") {
+            return isChapter4Clean ? "character/泥土精靈.png" : "character/醜泥怪.png";
+        }
+        return null;
+    }
+
+    // 渲染舞台角色立繪（角色講話時用相應素材疊在背景上，主角不會有）
+    renderStageCharacters(speakerId) {
+        if (!this.dom.stageCharacters) return;
+
+        const assetSrc = this.getCharacterAsset(speakerId);
+        if (!assetSrc) {
+            // 若為旁白或主角講話，舞台不顯示立繪
+            this.dom.stageCharacters.innerHTML = "";
+            return;
         }
 
-        // 去重並確保當前說話者在場上
-        if (speakerId && speakerId !== "narrator" && !cast.includes(speakerId)) {
-            cast.push(speakerId);
-        }
+        const chapter = this.story.chapters[this.currentChapterIndex];
+        const isChapter4Clean = (chapter.id === "ch4" && this.currentSceneIndex >= 2);
+        let charName = "角色";
+        if (speakerId === "water_drop") charName = "小水滴";
+        else if (speakerId === "river_grandpa") charName = "河爺爺";
+        else if (speakerId === "egret") charName = "小白鷺";
+        else if (speakerId === "mud_monster") charName = isChapter4Clean ? "泥土守護精靈" : "醜泥怪";
 
-        cast.forEach(charId => {
-            const char = this.story.characters[charId];
-            if (!char) return;
-
-            const charEl = document.createElement("div");
-            charEl.className = `stage-char char-${charId}`;
-            if (charId === speakerId) {
-                charEl.classList.add("speaking");
-            }
-
-            // 終章乾淨的醜泥怪特殊 SVG
-            let svgContent = char.avatarSvg;
-            if (charId === "mud_monster" && isChapter4Clean && char.cleanedSvg) {
-                svgContent = char.cleanedSvg;
-            }
-
-            charEl.innerHTML = `
-                <div class="char-sprite-wrap">
-                    ${svgContent}
-                </div>
-                <div class="char-name-plate" style="border-bottom-color: ${char.color}">
-                    ${(charId === "mud_monster" && isChapter4Clean) ? "泥土守護精靈" : char.name}
-                </div>
-            `;
-            this.dom.stageCharacters.appendChild(charEl);
-        });
+        this.dom.stageCharacters.innerHTML = `
+            <div class="vn-character-wrapper fade-in">
+                <img src="${encodeURI(assetSrc)}" class="vn-character-sprite char-${speakerId}" alt="${charName}" />
+            </div>
+        `;
     }
 
     // 渲染對話打字機效果
@@ -359,8 +348,12 @@ class GameEngine {
             this.dom.speakerCatchphrase.textContent = speaker.catchphrase ? `「${speaker.catchphrase}」` : "";
         }
         if (this.dom.speakerAvatar) {
-            const svgContent = (scene.speaker === "mud_monster" && isChapter4Clean && speaker.cleanedSvg) ? speaker.cleanedSvg : speaker.avatarSvg;
-            this.dom.speakerAvatar.innerHTML = svgContent;
+            const assetSrc = this.getCharacterAsset(scene.speaker);
+            if (assetSrc) {
+                this.dom.speakerAvatar.innerHTML = `<img src="${encodeURI(assetSrc)}" class="dialogue-avatar-img" alt="${speaker.name}" />`;
+            } else {
+                this.dom.speakerAvatar.innerHTML = `<span class="dialogue-avatar-icon">📖</span>`;
+            }
         }
 
         // 開始打字機文字呈現
@@ -593,6 +586,7 @@ class GameEngine {
                         speaker: opt.responseSpeaker || "water_drop",
                         text: opt.responseText
                     });
+                    this.renderStageCharacters(opt.responseSpeaker || "water_drop");
                 }
                 btnGroup.querySelectorAll("button").forEach(b => b.disabled = true);
                 btn.classList.add("selected");
@@ -699,8 +693,18 @@ class GameEngine {
                     audioMgr.playCorrect();
                     interaction._isCompleted = true;
                     setTimeout(() => {
-                        detailBox.innerHTML += `<div class="all-cleared-msg">✨ 太棒了！四個歷史線索全數解開！點擊下方對話繼續！</div>`;
-                    }, 500);
+                        detailBox.innerHTML += `
+                            <div class="all-cleared-msg">
+                                ✨ 太棒了！四個歷史線索全數解開！
+                                <button id="btn-hunt-continue" class="btn-primary" style="margin-top: 10px; width: 100%;">完成探索，繼續冒險 ➔</button>
+                            </div>`;
+                        const btnCont = detailBox.querySelector("#btn-hunt-continue");
+                        if (btnCont) {
+                            btnCont.addEventListener("click", () => {
+                                this.handleNextDialogue();
+                            });
+                        }
+                    }, 400);
                 }
             });
         });
@@ -898,8 +902,18 @@ class GameEngine {
                     audioMgr.playCorrect();
                     interaction._isCompleted = true;
                     setTimeout(() => {
-                        infoBox.innerHTML += `<div class="all-cleared-msg">🌿 河岸恢復清爽了！小動物們都很感謝你！點擊對話繼續！</div>`;
-                    }, 600);
+                        infoBox.innerHTML += `
+                            <div class="all-cleared-msg">
+                                🌿 河岸恢復清爽了！小動物們都很感謝你！
+                                <button id="btn-trash-continue" class="btn-primary" style="margin-top: 10px; width: 100%;">完成清理，繼續冒險 ➔</button>
+                            </div>`;
+                        const btnCont = infoBox.querySelector("#btn-trash-continue");
+                        if (btnCont) {
+                            btnCont.addEventListener("click", () => {
+                                this.handleNextDialogue();
+                            });
+                        }
+                    }, 400);
                 }
             });
         });
@@ -966,6 +980,23 @@ class GameEngine {
                 if (this.huntProgress.knowledgeCards.size === interaction.cards.length) {
                     audioMgr.playCorrect();
                     interaction._isCompleted = true;
+                    const clearedEl = container.querySelector(".all-cleared-msg");
+                    if (!clearedEl) {
+                        const msgBox = document.createElement("div");
+                        msgBox.className = "all-cleared-msg fade-in";
+                        msgBox.style.marginTop = "14px";
+                        msgBox.innerHTML = `
+                            ✨ 四大污染真相全數揭露！
+                            <button id="btn-cards-continue" class="btn-primary" style="margin-top: 10px; width: 100%;">揭曉完畢，繼續冒險 ➔</button>
+                        `;
+                        container.appendChild(msgBox);
+                        const btnCont = msgBox.querySelector("#btn-cards-continue");
+                        if (btnCont) {
+                            btnCont.addEventListener("click", () => {
+                                this.handleNextDialogue();
+                            });
+                        }
+                    }
                 }
             });
         });
