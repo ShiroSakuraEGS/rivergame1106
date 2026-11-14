@@ -3,7 +3,7 @@
  * 提供靜態資產離線快取，確保戶外走讀教學無網路時仍可暢玩
  */
 
-const CACHE_NAME = "waoyao-river-cache-v1";
+const CACHE_NAME = "waoyao-river-cache-v2";
 
 // 離線快取核心檔案清單
 const ASSETS_TO_CACHE = [
@@ -16,8 +16,14 @@ const ASSETS_TO_CACHE = [
     "./js/audioManager.js",
     "./js/gameEngine.js",
     "./js/main.js",
-    "./assets/images/cover.png",
-    "./assets/images/player.png"
+    "./瓦磘溝探索之旅 (1).webp",
+    "./assets/images/cover.webp",
+    "./assets/images/player.webp",
+    "./character/小水滴.webp",
+    "./character/小白鷺.webp",
+    "./character/河伯伯.webp",
+    "./character/泥土精靈.webp",
+    "./character/醜泥怪.webp"
 ];
 
 // 安裝事件：預先下載並快取靜態資源

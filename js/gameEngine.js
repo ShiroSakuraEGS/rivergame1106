@@ -293,13 +293,13 @@ class GameEngine {
         const isChapter4Clean = (chapter.id === "ch4" && this.currentSceneIndex >= 2);
 
         if (speakerId === "water_drop") {
-            return "character/小水滴.png";
+            return "character/小水滴.webp";
         } else if (speakerId === "river_grandpa") {
-            return "character/河伯伯.png";
+            return "character/河伯伯.webp";
         } else if (speakerId === "egret") {
-            return "character/小白鷺.png";
+            return "character/小白鷺.webp";
         } else if (speakerId === "mud_monster") {
-            return isChapter4Clean ? "character/泥土精靈.png" : "character/醜泥怪.png";
+            return isChapter4Clean ? "character/泥土精靈.webp" : "character/醜泥怪.webp";
         }
         return null;
     }

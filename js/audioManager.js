@@ -11,6 +11,8 @@ class AudioManager {
         // 背景音樂播放器核心變數
         this.currentAudio = null;
         this.currentTrackKey = null;
+        this.currentTrackSrc = null;
+        this.fadeTimer = null;
         this.bgmVolume = 0.45; // 預設背景音樂音量（舒適柔和，不壓過語音與音效）
 
         // 背景音樂曲目對照表（對應 music/ 目錄下的素材）
@@ -43,46 +45,56 @@ class AudioManager {
         }
     }
 
-    // 播放指定章節或場景的背景音樂（支援循環播放與平滑淡入淡出）
-    playBGM(trackKey, fadeInDuration = 800) {
+    // 播放指定章節或場景的背景音樂（單一播放實例，避免多重音訊重疊）
+    playBGM(trackKey, fadeInDuration = 400) {
         if (!this.tracks[trackKey]) return;
+        const targetSrc = this.tracks[trackKey];
 
-        // 若請求播放當前已在播的同一曲目，且音樂未暫停，則保持流暢不重新加載
-        if (this.currentTrackKey === trackKey && this.currentAudio && !this.currentAudio.paused) {
+        // 核心防護 1：若當前播放的音訊檔案來源與目標曲目一致且正在播放，保持流暢繼續播放，不重複加載
+        if (this.currentTrackSrc === targetSrc && this.currentAudio && !this.currentAudio.paused) {
+            this.currentTrackKey = trackKey;
             return;
         }
 
         this.currentTrackKey = trackKey;
-        const targetSrc = encodeURI(this.tracks[trackKey]);
+        this.currentTrackSrc = targetSrc;
 
         // 若處於靜音模式，記錄曲目但不發聲
         if (this.isMuted) {
             if (this.currentAudio) {
                 this.currentAudio.pause();
+                this.currentAudio.currentTime = 0;
             }
             return;
         }
 
-        // 舊音樂平滑淡出
-        const oldAudio = this.currentAudio;
-        if (oldAudio) {
-            this.fadeOutAndStop(oldAudio, 500);
+        // 核心防護 2：徹底撤回並停止前一首背景音樂，消除雙重音訊重疊
+        if (this.fadeTimer) {
+            clearInterval(this.fadeTimer);
+            this.fadeTimer = null;
+        }
+        if (this.currentAudio) {
+            try {
+                this.currentAudio.pause();
+                this.currentAudio.currentTime = 0;
+                this.currentAudio.src = "";
+            } catch (e) {
+                console.warn("清理舊音訊實例失敗：", e);
+            }
+            this.currentAudio = null;
         }
 
-        // 建立新音訊實例
+        // 建立新音訊實例並播放
         try {
-            const newAudio = new Audio(targetSrc);
+            const newAudio = new Audio(encodeURI(targetSrc));
             newAudio.loop = true; // 循環播放
-            newAudio.volume = 0;
+            newAudio.volume = this.bgmVolume;
             this.currentAudio = newAudio;
 
             const playPromise = newAudio.play();
             if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    // 平滑淡入至目標音量
-                    this.fadeIn(newAudio, this.bgmVolume, fadeInDuration);
-                }).catch(err => {
-                    console.log("瀏覽器自動播放策略等待使用者首次觸發：", err);
+                playPromise.catch(err => {
+                    console.log("瀏覽器自動播放策略等待使用者互動觸發：", err);
                 });
             }
         } catch (e) {
@@ -96,55 +108,22 @@ class AudioManager {
         this.playBGM(key);
     }
 
-    // 音樂平滑淡入
-    fadeIn(audio, targetVolume, duration) {
-        if (!audio) return;
-        const stepTime = 50;
-        const steps = duration / stepTime;
-        const volumeIncrement = targetVolume / steps;
-        let currentVol = 0;
-
-        const timer = setInterval(() => {
-            if (this.isMuted || audio !== this.currentAudio) {
-                clearInterval(timer);
-                return;
-            }
-            currentVol = Math.min(targetVolume, currentVol + volumeIncrement);
-            audio.volume = currentVol;
-            if (currentVol >= targetVolume) {
-                clearInterval(timer);
-            }
-        }, stepTime);
-    }
-
-    // 音樂平滑淡出並停止
-    fadeOutAndStop(audio, duration) {
-        if (!audio) return;
-        const stepTime = 50;
-        const steps = duration / stepTime;
-        const volumeDecrement = audio.volume / steps;
-
-        const timer = setInterval(() => {
-            if (!audio) {
-                clearInterval(timer);
-                return;
-            }
-            audio.volume = Math.max(0, audio.volume - volumeDecrement);
-            if (audio.volume <= 0.02) {
-                audio.pause();
-                audio.currentTime = 0;
-                clearInterval(timer);
-            }
-        }, stepTime);
-    }
-
-    // 停止背景音樂
-    stopBGM(fadeOutDuration = 600) {
+    // 停止背景音樂（徹底撤回與重置）
+    stopBGM() {
+        if (this.fadeTimer) {
+            clearInterval(this.fadeTimer);
+            this.fadeTimer = null;
+        }
         if (this.currentAudio) {
-            this.fadeOutAndStop(this.currentAudio, fadeOutDuration);
+            try {
+                this.currentAudio.pause();
+                this.currentAudio.currentTime = 0;
+                this.currentAudio.src = "";
+            } catch (e) {}
             this.currentAudio = null;
         }
         this.currentTrackKey = null;
+        this.currentTrackSrc = null;
     }
 
     // 切換音樂開關（可開或關音樂）

@@ -11,8 +11,8 @@ const STORY_DATA = {
         subtitle: "消失的河川記憶",
         project: "志同道河 River Adventure Project",
         description: "一場關於河流、居民、動物與守護的冒險",
-        coverImage: "assets/images/cover.png",
-        playerImage: "assets/images/player.png"
+        coverImage: "assets/images/cover.webp",
+        playerImage: "assets/images/player.webp"
     },
 
     // 角色設定資料庫
